@@ -1,0 +1,35 @@
+{
+  "name": "smartemoji",
+  "version": "0.9.0",
+  "description": "Client-side JS Emoji picker with server side emoji list and I18n",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "grunt compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nothrem/SmartEmoji.git"
+  },
+  "keywords": [
+    "emoji",
+    "smiley",
+    "emoticon",
+    "unicode"
+  ],
+  "author": "Nothrem Sinsky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nothrem/SmartEmoji/issues"
+  },
+  "homepage": "https://github.com/nothrem/SmartEmoji#readme",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-replace": "^1.0.1",
+    "less": "^3.10.3",
+    "less-plugin-clean-css": "^1.5.1"
+  },
+  "dependencies": {}
+}
