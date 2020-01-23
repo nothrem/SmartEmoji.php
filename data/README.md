@@ -1,10 +1,10 @@
-#JSON Data
+# JSON Data
 Data stored in JSON files are used by the client-side script to show the list of emoji, display their translaten names
 and search and filter them by their (internationalited) keywords.
 
 JSON files are generated from the Unicode CLDR XML files.
 
-##Groups
+## Groups
 File named groups.json contains list of groups in order in which they should be sorted and the list of emoji belonging
 into each group.
 
@@ -12,7 +12,7 @@ Object "groups" should contain ordered list of objects representing groups. Each
 * "id" defining string or number under which its translation can be found in emoji.xx.json in "groups" object
 * "list" defining ordered array of strings containing an emoji (one string for each emoji) or objects representing groups.
 
-##Emoji
+## Emoji
 Files named emoji.xx.json contain list of emoji characters and their names and keywords in given language. Also contains
 list of groups and their translations in given language.
 
@@ -29,7 +29,7 @@ Object "groups" should have keys defined in groups.json file in "id" properties.
 property "name" specifying translated name of that group. Of only name is known (i.e. there are no other properties),
 instead of object the key can contain string with translation.
 
-##TODO
+## TODO
 How to define variants (e.g. gender or skin-color) of each emoji to create filter?
 
 # Core Data
@@ -47,14 +47,14 @@ Currently included version is http://unicode.org/Public/cldr/36/core.zip
 
 These data are not required to run the SmartEmoji, they are only used to prepare the JSON files used by it.
 
-#CLDR help
-##Annotations
+# CLDR help
+## Annotations
 Contains translated names and keywords of all basic emoji symbols.
 
 Attribute cp of each annotation define the emoji for the record. Annotation with attibute type=tts defines the human-
 readable name of the emoji. The annotation without this attibute defines a list of keywords that describe the emoji.
 
-##AnnotationsDerived
+## AnnotationsDerived
 Contains translated names and keywords of all emoji that serve as variants of the basic set. Derived emoji include
 emoji with different skin color or various genders and their combination (e.g. emoji "light-skin toned woman kissing
 dark-skin toned man").
@@ -62,7 +62,7 @@ dark-skin toned man").
 Derived emojis consist of a set of basic emoji and each font that support emoji must know how to compile the final image.
 For example the above emoji consists of 6 basic emoji: woman, light-skin, heart, mouth, man, dark-skin.
 
-##Properties - Labels
+## Properties - Labels
 File labels.txt contains lists of emoji sorted by their categories (e.g. Smileys - Positive faces).
 
 These lists can be used to generate the Emoji picker with emoji ordered in their relevant order.
@@ -80,7 +80,7 @@ must be convert: make all letters lower-case, remove all white-spaces and replac
 e.g. translation for group "Smileys & People" can be found in characterLabel with type "smileys_people".
 
 
-##Collations
+## Collations
 Colations define how UNICODE characters should be sorted in general (file root.xml) and in each language (nationalized
 XMLs). Specifically for emoji the collation of type "emoji" defines in which order should be the emoji sorted.
 
@@ -103,7 +103,7 @@ Each Collation node contains CDATA with sorting rule definitions:
    e.g. "& a <<* äáâ" equals to "& a << ä << á << â" and means that "ä", "á" and "â" must be ordered after "a"
 * when a character that is already in the list is listed again after "<" or "=" it means it must be moved in the list
 
-#Variantion selector
+# Variantion selector
 Emoji may contain hidden character U+FE0F. This character means that the previous character is normally not considered
 emoji but here should be considered a part of the previous emoji (or character is general) for which is defines a variant
 (e.g. square symbol is not part of emoji list, however when printed after a number and followed by U+FE0F it should
