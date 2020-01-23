@@ -98,9 +98,9 @@ Each Collation node contains CDATA with sorting rule definitions:
 * list of characters after any above rule definer means that they must be considered and sorted as one character
    e.g. "& h < ch" means that "ch" is considered single character that should be sorted after "h".
         "& s < ss = ß" means that "ss" is equal to "ß" and should be sorted after the letter "s".
-* "*" after any above rule definer means that each character in the list is to be considered a separate character
+* "\*" after any above rule definer means that each character in the list is to be considered a separate character
   sorted in given order with the same importance
-   e.g. "& a <<* äáâ" equals to "& a << ä << á << â" and means that "ä", "á" and "â" must be ordered after "a"
+   e.g. "& a <<\* äáâ" equals to "& a << ä << á << â" and means that "ä", "á" and "â" must be ordered after "a"
 * when a character that is already in the list is listed again after "<" or "=" it means it must be moved in the list
 
 # Variantion selector
