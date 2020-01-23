@@ -1,0 +1,22 @@
+{
+	"groups": [
+		{
+			"id": "smileys_people",
+			"list": [
+				{
+					"id": "face-positive",
+					"list": [
+						"☺",
+						"\uD83D\uDE00",
+						"\uD83D\uDE01",
+						"\uD83D\uDE02",
+						"\uD83D\uDE03",
+						"\uD83D\uDE04",
+						"\uD83D\uDE05",
+						"\uD83D\uDE06"
+					]
+				}
+			]
+		}
+	]
+}

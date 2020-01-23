@@ -1,0 +1,20 @@
+{
+	"emoji": {
+		"": {
+			"name": "Unknown"
+		},
+		"☺": {
+			"name": "Smiling face",
+			"keywords": " face | outlined | relaxed | smile | smiling face "
+		},
+		"😀": {
+			"name": "Grinning face",
+			"keywords": "face | grin | grinning face"
+		}
+	},
+	"groups": {
+		"smileys_people": {
+			"name": "Smileys & People"
+		}
+	}
+}
