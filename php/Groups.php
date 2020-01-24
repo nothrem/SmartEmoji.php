@@ -2,7 +2,8 @@
 
 namespace emoji;
 
-const cp = 'UTF-8'; //PHP code for UTF-8 encoding (for syntactic sugar)
+require_once 'Unicode.php';
+use emoji\Unicode AS U;
 
 class Groups {
     protected const DEFAULT_DATA_DIR = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'core';
@@ -19,9 +20,6 @@ class Groups {
      */
     public function __construct(string $path = null) {
         $this->path = $path ?? self::DEFAULT_DATA_DIR;
-
-        $this->getLabelFile();
-
     }
 
     /**
@@ -79,7 +77,7 @@ class Groups {
                 $matches->found = [];
 
                 //check how many characters there are in the list
-                $count = mb_strlen($matches->list, cp);
+                $count = U::len($matches->list);
 
                 echo 'Processing group ', $matches->group, ':', $matches->type, PHP_EOL;
 
@@ -87,33 +85,33 @@ class Groups {
                 //For that reason we will always split the string to 1st character and the rest
                 //...until we reach the end (i.e. empty list)
                 while (strlen($matches->list)) {
-                    $char = mb_substr($matches->list, 0, 1,cp); //get first char
+                    $char = U::sub($matches->list, 0, 1); //get first char
                     $matches->list = substr($matches->list, strlen($char)); //get the rest; process as single-byte string to process it faster
 
                     if (self::EMOJI_DERIVED_START === $char) { //process multi-character emoji
                         $end = strpos($matches->list, self::EMOJI_DERIVED_END);
                         $char = substr($matches->list, strlen(self::EMOJI_DERIVED_START)-1, $end - strlen(self::EMOJI_DERIVED_END) + 1); //get chars between start and end character
                         $matches->list = substr($matches->list, $end + strlen(self::EMOJI_DERIVED_END));
-                        echo '  * Found multi-character emoji ', $char, ' (', trim(mb_strlen($char)), ' chars: U+';
+                        echo '  * Found multi-character emoji ', $char, ' (', U::len($char), ' chars: ';
                         $split = [];
-                        for ($j = 0, $count = mb_strlen($char, cp); $j < $count; ++$j) {
-                            $split[] = trim(dechex(mb_ord(mb_substr($char, $j, 1, cp), cp)));
+                        for ($j = 0, $count = U::len($char); $j < $count; ++$j) {
+                            $split[] = U::codepoint($char, $j);
                         }
-                        echo implode(', U+', $split), ')', PHP_EOL;
+                        echo implode(', ', $split), ')', PHP_EOL;
                         $matches->found[] = $char;
                     }
                     else if (strlen($matches->list) && self::EMOJI_SEQUENCE_CHAR === $matches->list[0]) { //process whole sequence of characters
-                        $end = mb_substr($matches->list, mb_strlen(self::EMOJI_SEQUENCE_CHAR, cp), 1, cp);
-                        echo '  * Processing emoji sequence ', $char, ' - ', $end, '(U+', trim(dechex(mb_ord($char))), ' - U+', trim(dechex(mb_ord($end))), ')' . PHP_EOL;
-                        $matches->list = substr($matches->list, strlen(self::EMOJI_SEQUENCE_CHAR)+strlen($end));
+                        $end = U::char($matches->list, self::EMOJI_SEQUENCE_CHAR);
+                        echo '  * Processing emoji sequence ', $char, ' - ', $end, '(', U::codepoint($char), ' - ', U::codepoint($end), ')' . PHP_EOL;
+                        $matches->list = U::sub($matches->list, self::EMOJI_SEQUENCE_CHAR . $end);
 
-                        for ($j = mb_ord($char, cp), $k = mb_ord($end, cp); $j <= $k; ++$j) {
-                            echo '    * Found emoji ', mb_chr($j, cp), '(U+', trim(dechex($j)), ')', PHP_EOL;
-                            $matches->found[] = mb_chr($j, cp);
+                        for ($j = U::ord($char), $k = U::ord($end); $j <= $k; ++$j) {
+                            echo '    * Found emoji ', U::chr($j), ' (', U::codepoint($j), ')', PHP_EOL;
+                            $matches->found[] = U::chr($j);
                         }
                     }
                     else { //just a single emoji
-                        echo '  * Found emoji ', $char, ' (U+', trim(dechex(mb_ord($char, cp))), ')', PHP_EOL;
+                        echo '  * Found emoji ', $char, ' (', U::codepoint($char), ')', PHP_EOL;
                         $matches->found[] = $char;
                     }
                 }
@@ -139,7 +137,7 @@ class Groups {
             foreach ($group as $type) {
                 $count += count($type);
             }
-            echo '  Group ', $name, ' contains $count emoji' . PHP_EOL;
+            echo '  Group ', $name, ' contains ', $count, ' emoji' . PHP_EOL;
         }
 
         echo PHP_EOL, 'Finished processing groups', PHP_EOL, 'hint: if your console does not support UTF-8 you can dump the output into a file and then open it with UTF-8 encoding to see the emoji.', PHP_EOL;
