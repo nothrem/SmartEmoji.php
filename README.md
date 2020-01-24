@@ -53,7 +53,7 @@ On Windows use script:
 
 ```> npm run-script win-parse```
 
-#PHP parser and additional languages
+# PHP parser and additional languages
 If you want to add more languages not included in this repository, run this command from the root folder of this project:
 
 ## Linux and MacOS X
