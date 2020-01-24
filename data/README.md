@@ -160,3 +160,9 @@ emoji but here should be considered a part of the previous emoji (or create an e
 for which is defines a variant.
 e.g. square symbol is not part of emoji list, however when printed after a number and followed by `U+FE0F` it should
 be displayed as "_a number in square_" emoji.
+
+On the other hand, if an emoji is followed by hidden character `U+FE0E` it means that the emoji should be displayed as
+its text representation. Usually this means that the icon will display only in black&white and for some characters
+it will display simpler version of the symbol. In documents this can be used to be able to format the emoji as same as
+text (i.e. apply text color to the symbol). Also text representation of an emoji should have same size as normal text
+so it can useful when it is unwanted that line height would be increased in order to display larger emoji.
