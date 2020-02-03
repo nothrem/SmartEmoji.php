@@ -102,7 +102,7 @@ class Groups {
                     }
                     else if (strlen($matches->list) && self::EMOJI_SEQUENCE_CHAR === $matches->list[0]) { //process whole sequence of characters
                         $end = U::char($matches->list, self::EMOJI_SEQUENCE_CHAR);
-                        echo '  * Processing emoji sequence ', $char, ' - ', $end, '(', U::codepoint($char), ' - ', U::codepoint($end), ')' . PHP_EOL;
+                        echo '  * Processing emoji sequence ', $char, ' - ', $end, ' (', U::codepoint($char), ' - ', U::codepoint($end), ')' . PHP_EOL;
                         $matches->list = U::sub($matches->list, self::EMOJI_SEQUENCE_CHAR . $end);
 
                         for ($j = U::ord($char), $k = U::ord($end); $j <= $k; ++$j) {
