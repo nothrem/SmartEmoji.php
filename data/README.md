@@ -81,13 +81,60 @@ instead of an object the key can contain a string with the translation.
 ## TODO
 _How to define variants (e.g. gender or skin-color) of each emoji to create filter?_
 
+# Emoji list
+
+Unicode organization defines and maintains list of all characters defined world wide (e.g. latin letter, cyrillic
+letters, Chinese/Kanji characters, etc.).
+ 
+Special group in these characters are _emoji_ (from japanese either combination
+of "e" (_picture_) and "moji" (_letters_) or "emo" (from english "_emotions_") and "ji" (_language_).
+
+Each year Unicode organization releases new version of emoji extended by the current needs.
+
+Currently latest released version is Emoji 12.1 (2019); currently working on Emoji 13 for year 2020.    
+
+List of supported emoji can be found in file https://unicode.org/Public/emoji/12.1/emoji-sequences.txt
+(for version Emoji 12; use respective newer version as needed)
+
+## ZWJ (Zero Width Joiner)
+Some emoji may contain ZWJ (read "zwidge"), a hidden character (`U+200D`) that marks that the emoji must be displayed  
+differently.
+
+For example emoji for a male or female followed by ZWJ and emoji for hospital should be displayed as a male or female  
+doctor respectively. For another example any hand or person emoji followed by ZWJ and skin tone emoji means the first  
+emoji must be displayed with given skin tone. Another possibility is a person emoji followed by ZWJ and hair color emoji
+(e.g. red hair) which will change color of hair on the emoji.
+
+The above examples can be combined to create specific emoji. For example "Dark skin tone male doctor with black hair"
+consist of emoji hospital, male, dark skin and black hair (theoretically because such emoji is not supported yet).
+
+List of supported emoji that uses ZWJ is in file https://unicode.org/Public/emoji/13.0/emoji-zwj-sequences.txt
+(for version Emoji 13; use respective newer version as needed)
+
+## Variantion selector
+Emoji may contain hidden character `U+FE0F`. This character means that the previous character is normally not considered
+emoji but here should be considered a part of the previous emoji (or create an emoji with the preceding character)
+for which is defines a variant.
+e.g. square symbol is not part of emoji list, however when printed after a number and followed by `U+FE0F` it should
+be displayed as "_a number in square_" emoji.
+
+On the other hand, if an emoji is followed by hidden character `U+FE0E` it means that the emoji should be displayed as
+its text representation. Usually this means that the icon will display only in black&white and for some characters
+it will display simpler version of the symbol. In documents this can be used to be able to format the emoji as same as
+text (i.e. apply text color to the symbol). Also text representation of an emoji should have same size as normal text
+so it can useful when it is unwanted that line height would be increased in order to display larger emoji.
+
+List of supported variantion emoji is listed in file:
+https://unicode.org/Public/13.0.0/ucd/emoji/emoji-variation-sequences.txt
+(for version Emoji 13; use respective newer version as needed)
+
 # Core Data
 Core data are from _Unicode Common Locale Data Repository_.
 
 _Data not related to emoji has been removed from this repository._
 
 The Core package of CLDR contains:
-A) list of all emoji characters defined by the UNICODE organization, their names, categories and keywords and 
+A) list of all emoji characters defined by the UNICODE organization, their names, categories and keywords and
 B) translations for all the texts collected from various Organizations (goverments, companies and other national sources).
 
 Find the latest version on http://cldr.unicode.org/.
@@ -121,7 +168,7 @@ Each list (row) contains list of emoji in square brackets (array). Each UTF-8 ch
 A dash character (`-`) means that all UTF-8 characters between the left and right character belong into this list.
 UTF-8 characters in curly brackets (`{}`) define derived emoji and must be considered as one emoji.
 
-Category (label) and sub-category (second-level label) of the list is separated by a semi-colon (`;`) and 
+Category (label) and sub-category (second-level label) of the list is separated by a semi-colon (`;`) and
 optional white-spaces.
 
 Category _Smileys & People - skin-tone_ lists variants for derived emoji and should be used for variant selection.
@@ -153,16 +200,3 @@ Each Collation node contains CDATA with sorting rule definitions:
   sorted in given order with the same importance.
    e.g. "`& a <<\* äáâ`" equals to "`& a << ä << á << â`" and means that `ä`, `á` and `â` must be ordered after `a`.
 * When a character that is already in the list is listed again after `<` or `=` it means it must be moved in the list.
-
-# Variantion selector
-Emoji may contain hidden character `U+FE0F`. This character means that the previous character is normally not considered
-emoji but here should be considered a part of the previous emoji (or create an emoji with the preceding character)
-for which is defines a variant.
-e.g. square symbol is not part of emoji list, however when printed after a number and followed by `U+FE0F` it should
-be displayed as "_a number in square_" emoji.
-
-On the other hand, if an emoji is followed by hidden character `U+FE0E` it means that the emoji should be displayed as
-its text representation. Usually this means that the icon will display only in black&white and for some characters
-it will display simpler version of the symbol. In documents this can be used to be able to format the emoji as same as
-text (i.e. apply text color to the symbol). Also text representation of an emoji should have same size as normal text
-so it can useful when it is unwanted that line height would be increased in order to display larger emoji.
