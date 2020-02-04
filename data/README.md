@@ -111,12 +111,20 @@ consist of emoji hospital, male, dark skin and black hair (theoretically because
 List of supported emoji that uses ZWJ is in file https://unicode.org/Public/emoji/13.0/emoji-zwj-sequences.txt
 (for version Emoji 13; use respective newer version as needed)
 
+Note that some emoji may use modifier without ZWJ. For example most of the emoji representing people (man, woman, etc.),
+actions (running, swimming, etc.) or body parts (hands, nose, ear, etc.) can use skin tone modifier without the ZWJ
+simply by appending the skin tone emoji after the basic emoji (e.g. Santa Claus consists of 2 unicode characters:
+santa + skin tone).
+However in these cases the basic emoji cannot be displayed as standalone emoji and is required to contain skin tone
+even for the basic (medium skin tone) version. These emoji are listed in the basic emoji sequence list
+in group `Emoji_Modifier_Sequence` (see above). 
+
 ## Variantion selector
 Emoji may contain hidden character `U+FE0F`. This character means that the previous character is normally not considered
 emoji but here should be considered a part of the previous emoji (or create an emoji with the preceding character)
-for which is defines a variant.
-e.g. square symbol is not part of emoji list, however when printed after a number and followed by `U+FE0F` it should
-be displayed as "_a number in square_" emoji.
+for which it defines a variant.
+e.g. square symbol is not part of emoji list, however when printed after a number followed by `U+FE0F` it should
+be displayed as "_a number in square_" emoji (_Keycap_).
 
 On the other hand, if an emoji is followed by hidden character `U+FE0E` it means that the emoji should be displayed as
 its text representation. Usually this means that the icon will display only in black&white and for some characters

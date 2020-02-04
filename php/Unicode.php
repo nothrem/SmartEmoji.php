@@ -68,6 +68,21 @@ class Unicode {
     }
 
     /**
+     * Returns UNICODE character (encoded to UTF-8) represented by a hexadecimal sequence of code points.
+     *
+     * @param string $code
+     * @return false|string
+     */
+    public static function chrS(string $code) {
+        $code = explode(' ', $code); //may contain more code points separated by a space
+        $output = '';
+        foreach ($code as $char) {
+            $output .= self::chr(hexdec($char));
+        }
+        return $output;
+    }
+
+    /**
      * Returns human-readable (hexadecimal) code point of a UNICODE character (given as UTF-8 string or numerical code point).
      *s
      * @param string|int $char One character or longer string (encoded in UTF-8).
@@ -79,5 +94,25 @@ class Unicode {
             $char = self::ord($char, $pos);
         }
         return 'U+' . trim(dechex($char)) . ' (' . trim(json_encode(self::chr($char)), '\'"') . ')';
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    public static function low(string $string) {
+        return mb_strtolower($string, cp);
+    }
+
+    /**
+     * @param string $string
+     * @return string
+     */
+    public static function up(string $string) {
+        return mb_strtoupper($string, cp);
+    }
+
+    public static function upFirst(string $string) {
+        return mb_strtoupper(self::char($string)) . self::sub($string, 1);
     }
 }

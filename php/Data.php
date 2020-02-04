@@ -6,6 +6,21 @@ namespace xml;
 
 class Data {
 
+    //Keys to make JSON shorter (each value must be unique
+    public const JSON_TYPE = 't';
+    public const JSON_NAME = 'n';
+    public const JSON_MODIFIER = 'm';
+    public const JSON_KEYWORDS = 'k';
+
+    public const JSON_TYPES = [
+        'Basic_Emoji' => null, //basic type is default so no need to print it
+        'Emoji_Keycap_Sequence' => 'k',
+        'Emoji_Flag_Sequence' => 'f',
+        'Emoji_Tag_Sequence' => 't',
+        'Emoji_Modifier_Sequence' => 'm', //emoji with modifier
+        'Emoji_ZWJ_Sequence' => 'j', //emoji with joiner
+    ];
+
     protected $file;
     protected $data;
     protected $index;
@@ -22,6 +37,16 @@ class Data {
 
     public function getName() {
         return $this->file;
+    }
+
+    /**
+     * Convert emoji type to shortened version
+     *
+     * @param string $type Emoji type
+     * @return string|null Shortened emoji type, full emoji type (when shorter is not available) or NULL for default type
+     */
+    public static function getType(string $type) : ?string {
+        return array_key_exists($type, self::JSON_TYPES) ? self::JSON_TYPES[$type] : $type;
     }
 
     public function filterXml(string $tag, array $attributes = []) : array {

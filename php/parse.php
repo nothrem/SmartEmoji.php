@@ -11,13 +11,20 @@ try {
 
 $langs = $argv[1] ?? [];
 
+//Find all emoji defined by UNICODE
+require_once 'Sequences.php';
+
+$sequence = new \emoji\Sequences();
+$emoji = $sequence->parse('emoji-sequences.txt');
+$emoji = array_merge($emoji, $sequence->parse('emoji-zwj-sequences.txt'));
+
 //Process emoji groups
 require_once 'Groups.php';
 
 $groups = new \emoji\Groups();
 $groups = $groups->parse();
 
-//Process emoji annotations
+//Process emoji annotations (translated names)
 $annotations = [];
 if (empty($langs)) {
     echo 'Parameter with language list not found, skipping translation processing.', PHP_EOL;
@@ -26,7 +33,7 @@ else {
     require_once 'Annotations.php';
 
     $annotations = new \emoji\Annotations();
-    $annotations = $annotations->parse($langs);
+    $annotations = $annotations->parse($langs, $emoji);
 
 //Process group translations
     require_once 'Main.php';
@@ -35,6 +42,24 @@ else {
     $main->load($langs);
 
     $groupTranslations = [];
+
+    //Check if Annotations and Sequences match
+    foreach ($main->getLanguages() as $lang) {
+        foreach ($annotations[$lang] as $char => $annotation) {
+            if (!array_key_exists($char, $emoji)) {
+                echo 'Warning: emoji ', $char, ' not found in Sequences.', PHP_EOL;
+                fwrite(STDERR, 'Warning: emoji ' . $char . ' not found in Sequences.' . PHP_EOL);
+            }
+        }
+    }
+    foreach ($emoji as $char => $annotation) {
+        foreach ($main->getLanguages() as $lang) {
+            if (!array_key_exists($char, $annotations[$lang])) {
+                echo 'Warning: emoji ', $char, ' not found in Annotations of language ', $lang, '.', PHP_EOL;
+                fwrite(STDERR, 'Warning: emoji ' . $char . ' not found in Annotations of language ' . $lang . '.' . PHP_EOL);
+            }
+        }
+    }
 
     $main->getCharacterLabel('en', 'activities'); //just a random label to preload the labels from XMLs
     echo PHP_EOL, 'Translating emoji groups...', PHP_EOL;
@@ -70,7 +95,7 @@ if (!empty($main)) {
         file_put_contents($annotationFile, json_encode([
             'emoji'  => $annotations[$lang] ?? [],
             'groups' => $groupTranslations[$lang] ?? [],
-        ]));
+        ], JSON_THROW_ON_ERROR)); //Crash on invalid JSON instead of creating empty file
     }
 }
 
