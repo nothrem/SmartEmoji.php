@@ -238,3 +238,31 @@ Each Collation node contains CDATA with sorting rule definitions:
   sorted in given order with the same importance.
    e.g. "`& a <<\* äáâ`" equals to "`& a << ä << á << â`" and means that `ä`, `á` and `â` must be ordered after `a`.
 * When a character that is already in the list is listed again after `<` or `=` it means it must be moved in the list.
+
+# Code pages
+Here is a short list of code pages and their history explaining what UNICODE is used nowadays.
+
+* Old telegraph communication (in 19th and 1st half of 20th century) was using **5bit** or **6bit** code pages (as an
+  alternative to morse code) based on the needs of national alphabet (e.g. French ITA 2).
+* In 1967 **ASCII** (_American Standard Code for Information Interchange_) was defined as **7bit** code page used in the
+  first computers. Extension to ASCII is UTF-7 which uses 7bit set to describe characters from ANSI and UNICODE.
+  7bit code page is still required in some forms of communication such as emails or JSON (where UTF-7 or `\uXXXX` must
+  be used to describe 8bit or UNICODE characters).
+* In code page terminology the **ANSI** (comes from _American National Standards Institute_) is a term used for **8bit**
+  code pages; originally used for US code pages but later also for _any nationalized_ code page.
+  There are lots of code pages ANSI can refer to, such as OEM (cp437) used in 1981's IBM PC,
+  Windows code pages 125x used by nationalized Windows OS or ISO-8859, a set of 15 different sets of nationalized
+  lists of characters (which are fully backward compatible with ASCII).
+* **UNICODE 1.0** (developed since 1980) is a **16bit** code page that contains all characters from all previously
+  released nationalized code pages and some additional characters (such as Klingon script from Star Trek).
+  UNICODE 1.0 contains 63.5 thousands of characters (65535 - 2047 code points in range D800 - DFFF reserved for UTF-16).
+  Unicode characters can be written as 2 bytes (based on byte order either Big-endian or Little-endian) referred as
+  UCS-2 (Universal Character Set with 2 bytes) or simply UNICODE or in UTF-8 (rarely referred as MB3) which encodes
+  ASCII as one byte, ANSI as 2 bytes and other UNICODE characters as 3 bytes (simply said).
+* **UNICODE** in modern form (for 21st century; published in 2000) is **32bit** code page that includes all world-wide
+  used characters such as emoji. There is approximately 1.1 million (U+10FFFF) UNICODE characters.
+  UNICODE nowadays is usually written in extended UTF-8 (used in Linux-based and web-based systems; sometimes is
+  referred as MB4, for example in MySQL) which can contain more that 3 bytes per character, UTF-16 (which is 
+  the UCS-2 (UNICODE) extended to use 2 bytes for 16bit characters and 4 bytes for 32bit characters;
+  currently used internally by Windows, Java and Javascript for in-memory strings and filenames),
+  or UTF-32 which writes each character as 4 bytes. 

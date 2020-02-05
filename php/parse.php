@@ -95,7 +95,7 @@ echo 'Saving ', count($groups ?? []), ' groups and ', count($filter ?? []), ' fi
 file_put_contents($groupsFile, json_encode([
     'filter' => $filter[\xml\Data::JSON_LIST],
     'groups' => $groups,
-]));
+], JSON_UNESCAPED_UNICODE));
 
 //Save emoji and group translations into file
 if (!empty($main)) {
@@ -106,7 +106,7 @@ if (!empty($main)) {
         file_put_contents($annotationFile, json_encode([
             'emoji'  => $annotations[$lang] ?? [],
             'groups' => $groupTranslations[$lang] ?? [],
-        ], JSON_THROW_ON_ERROR)); //Crash on invalid JSON instead of creating empty file
+        ], JSON_THROW_ON_ERROR + JSON_UNESCAPED_UNICODE)); //Crash on invalid JSON instead of creating empty file
     }
 }
 
