@@ -59,7 +59,7 @@ class Groups {
 
     /**
      * Convert PHP indexed array into ordered array compatible with JSON
-     * Note: in PHP array with string keys is always ordered but in JSON it would convert to object; but we need array as well.
+     * Note: in PHP array with string keys is always ordered but in JSON it would convert to unordered object; see data\README.MD for details.
      *
      * @param array $groups
      * @return array

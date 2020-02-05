@@ -11,6 +11,7 @@ into each group.
 Object `groups` should contain ordered list of objects representing groups. Each group should define:
 * `id` defining string or number under which its translation can be found in `emoji.xx.json` in `groups` object,
 * `list` defining ordered array of strings containing an emoji (one string for each emoji) or objects representing groups.
+   Name of the key can be shortened as `l` to save data in JSON. 
 ```
 //groups.json example
 {
@@ -37,6 +38,10 @@ Object `groups` should contain ordered list of objects representing groups. Each
 }
 ```
 
+Note: we could use objects instead of arrays, but in JSON the object is unordered by specification which means the order
+of the keys can be randomly changed. To keep order of the elements we need to use array which is always ordered in JSON.
+The above-used structure is based on Java's LinkedHashArray which can keep both order and names (key or hash) of values.
+
 ## Emoji
 Files named `emoji.xx.json` contain list of emoji characters and their names and keywords in given language.
 Also contains list of groups and their translations in given language.
@@ -44,15 +49,33 @@ Also contains list of groups and their translations in given language.
 Each `emoji.xx.json` file should define objects `emoji` and `groups`.
 
 Object `emoji` should have keys defined in `groups.json` file in `list` properties as strings. Each key should contain
-object with properties `name` defining translated name of the emoji and `keywords` with translated list of words that
-match the emoji when searched. When only `keywords` are known for an emoji (i.e. there is no `name` or other properties),
-instead of an object the key can contain string with the keywords.
+an object with properties:
+* `name` defining translated name of the emoji
+* `modifier` defining modificator of the name (e.g. skin type, gender, etc.) 
+* `keywords` with translated list of words (separated by pipe `|`) that match the emoji when searched. Keywords already contained in `name` does
+  not have to be listed to save data in JSON. The client must search keywords both in `name` and `keywords`.
+* `type` defining UNICODE type of the emoji (basic, modifier, ZWJ, etc.)
+ 
+All properties are options. When only `keywords` are known for an emoji (i.e. there is no `name` or other properties), instead of an object the key
+can contain string with the keywords.
 
 Emoji with empty key (`""`) can define translated `name` for emoji without own name.
 
+Property names `name`, `modifier`, `keywords` and `type` can be shortened to `n`, `m`, `k` and `t` respectively.
+The value of `type` can be also shortened as defined in this list:
+* `Emoji_Keycap_Sequence` as `k`,
+* `Emoji_Flag_Sequence` as `f`,
+* `Emoji_Tag_Sequence` as `t`,
+* `Emoji_Modifier_Sequence` as `m`,
+* `Emoji_ZWJ_Sequence` as `j`,
+* Basic_Emoji is default type and emoji of this type does not have to have the `type` defined.
+
 Object `groups` should have keys defined in `groups.json` file in `id` properties. Each key should contain an object with
-property `name` specifying translated name of that group. When only a name is known (i.e. there are no other properties),
-instead of an object the key can contain a string with the translation.
+properties:
+* `name` specifying translated name of that group.
+
+When only a name is known (i.e. there are no other properties), instead of an object the key can contain a string with
+the translation.
 
 ```
 //emoji.en.json example
@@ -68,6 +91,11 @@ instead of an object the key can contain a string with the translation.
 		"😀": {
 			"name": "Grinning face",
 			"keywords": "face | grin | grinning face"
+		},
+		"1\u20e3": {
+			"name": "Keycap",
+			"modifier": "1",
+			"type": "Emoji_Keycap_Sequence",
 		}
 	},
 	"groups": {
@@ -77,6 +105,8 @@ instead of an object the key can contain a string with the translation.
 	}
 }
 ```
+
+Note that based on JSON specification all UTF-8 characters must be encoded as \uXXXX. 
 
 ## TODO
 _How to define variants (e.g. gender or skin-color) of each emoji to create filter?_
