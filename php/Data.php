@@ -3,7 +3,6 @@
 
 namespace xml;
 
-
 class Data {
 
     //Keys to make JSON shorter (each value must be unique

@@ -24,6 +24,16 @@ require_once 'Groups.php';
 $groups = new \emoji\Groups();
 $groups = $groups->parse();
 
+//Move filter into separate key
+foreach ($groups as $key => $group) {
+    if ('filter' === $group['id']) {
+        $filter = $group;
+        unset($groups[$key]);
+        break;
+    }
+}
+$groups = array_values($groups); //reset keys, otherwise JSON would encoded it as object instead of array
+
 //Process emoji annotations (translated names)
 $annotations = [];
 if (empty($langs)) {
@@ -81,9 +91,10 @@ else {
 //Save groups into file
 $groupsFile = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'groups.json';
 
-echo 'Saving ', count($groups ?? []), ' groups into file ', $groupsFile, PHP_EOL;
+echo 'Saving ', count($groups ?? []), ' groups and ', count($filter ?? []), ' filters into file ', $groupsFile, PHP_EOL;
 file_put_contents($groupsFile, json_encode([
-    'groups' => $groups
+    'filter' => $filter[\xml\Data::JSON_LIST],
+    'groups' => $groups,
 ]));
 
 //Save emoji and group translations into file

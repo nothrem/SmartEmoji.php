@@ -7,6 +7,103 @@ const cp = 'UTF-8'; //PHP code for UTF-8 encoding (for syntactic sugar)
 
 class Unicode {
 
+    public const UNICODE_GROUP_SKIN_TONE = 'skin-tone'; //name of group that contains skin tones
+
+    //Genders are used in emoji with professions (jobs) and other emoji dependent on genders
+    public const EMOJI_GENDER_MAN = '1f468';
+    public const EMOJI_GENDER_WOMAN = '1f469';
+    public const EMOJI_GENDER_ADULT = '1f9d1'; //gender-neutral person
+    public const EMOJI_GENDER_ALT_ADULT = '1f9d1'; //gender-neutral person
+
+    public const EMOJI_GENDER_OLD = '1f9d2'; //alternative for gender-neutral filter
+    public const EMOJI_GENDER_OLD_MAN = '1f474'; //alternative for male filter
+    public const EMOJI_GENDER_OLD_WOMAN = '1f475'; //alternative for female filter
+
+    //Child genders are used in family emoji and can be used for filter
+    public const EMOJI_GENDER_CHILD = '1f9d2'; //gender-neutral child
+    public const EMOJI_GENDER_ALT_BABY = '1f9d3'; //alternative for gender-neutral child (alternative for child filter)
+    public const EMOJI_GENDER_BABY = '1f476'; //gender-neutral baby (alternative for child filter)
+    public const EMOJI_GENDER_BOY = '1f466';   //male child
+    public const EMOJI_GENDER_GIRL = '1f467';  //female child
+
+    //Filters define what emoji to hide when given filter is selected
+    public const EMOJI_FILTER_MAN = [
+        self::EMOJI_GENDER_WOMAN,
+        self::EMOJI_GENDER_OLD_WOMAN,
+        self::EMOJI_GENDER_OLD,
+        self::EMOJI_GENDER_ADULT,
+        self::EMOJI_GENDER_ALT_ADULT,
+        self::EMOJI_GENDER_GIRL,
+        self::EMOJI_GENDER_CHILD,
+        self::EMOJI_GENDER_BABY,
+        self::EMOJI_GENDER_ALT_BABY,
+    ];
+    public const EMOJI_FILTER_WOMAN = [
+        self::EMOJI_GENDER_MAN,
+        self::EMOJI_GENDER_OLD_MAN,
+        self::EMOJI_GENDER_OLD,
+        self::EMOJI_GENDER_ADULT,
+        self::EMOJI_GENDER_ALT_ADULT,
+        self::EMOJI_GENDER_BOY,
+        self::EMOJI_GENDER_CHILD,
+        self::EMOJI_GENDER_BABY,
+        self::EMOJI_GENDER_ALT_BABY,
+    ];
+    public const EMOJI_FILTER_NEUTRAL = [
+        self::EMOJI_GENDER_MAN,
+        self::EMOJI_GENDER_OLD_MAN,
+        self::EMOJI_GENDER_WOMAN,
+        self::EMOJI_GENDER_OLD_WOMAN,
+        self::EMOJI_GENDER_BOY,
+        self::EMOJI_GENDER_GIRL,
+    ];
+    public const EMOJI_FILTER_CHILD = [
+        self::EMOJI_GENDER_MAN,
+        self::EMOJI_GENDER_OLD_MAN,
+        self::EMOJI_GENDER_WOMAN,
+        self::EMOJI_GENDER_OLD_WOMAN,
+        self::EMOJI_GENDER_OLD,
+        self::EMOJI_GENDER_BOY,
+        self::EMOJI_GENDER_GIRL,
+        self::EMOJI_GENDER_ADULT,
+        self::EMOJI_GENDER_ALT_ADULT,
+    ];
+    public const EMOJI_FILTER_BOY =  [
+        self::EMOJI_GENDER_MAN,
+        self::EMOJI_GENDER_OLD_MAN,
+        self::EMOJI_GENDER_WOMAN,
+        self::EMOJI_GENDER_OLD_WOMAN,
+        self::EMOJI_GENDER_OLD,
+        self::EMOJI_GENDER_ADULT,
+        self::EMOJI_GENDER_ALT_ADULT,
+        self::EMOJI_GENDER_GIRL,
+        self::EMOJI_GENDER_CHILD,
+        self::EMOJI_GENDER_BABY,
+        self::EMOJI_GENDER_ALT_BABY,
+    ];
+    public const EMOJI_FILTER_GIRL =  [
+        self::EMOJI_GENDER_MAN,
+        self::EMOJI_GENDER_OLD_MAN,
+        self::EMOJI_GENDER_WOMAN,
+        self::EMOJI_GENDER_OLD_WOMAN,
+        self::EMOJI_GENDER_OLD,
+        self::EMOJI_GENDER_ADULT,
+        self::EMOJI_GENDER_ALT_ADULT,
+        self::EMOJI_GENDER_BOY,
+        self::EMOJI_GENDER_CHILD,
+        self::EMOJI_GENDER_BABY,
+        self::EMOJI_GENDER_ALT_BABY,
+    ];
+
+    public const EMOJI_FILTER_GENDER = [
+        self::EMOJI_GENDER_MAN => self::EMOJI_FILTER_MAN,
+        self::EMOJI_GENDER_WOMAN => self::EMOJI_FILTER_WOMAN,
+        self::EMOJI_GENDER_ADULT => self::EMOJI_FILTER_NEUTRAL,
+        self::EMOJI_GENDER_CHILD => self::EMOJI_FILTER_CHILD,
+        self::EMOJI_GENDER_BOY => self::EMOJI_FILTER_BOY,
+        self::EMOJI_GENDER_GIRL => self::EMOJI_FILTER_GIRL,
+    ];
+
     /**
      * Calculate length of UNICODE string (encoded in UTF-8)
      */
@@ -92,7 +189,7 @@ class Unicode {
     }
 
     /**
-     * Returns UNICODE character (encoded to UTF-8) represented by a hexadecimal sequence of code points.
+     * Returns UNICODE character (encoded to UTF-8) represented by a hexadecimal sequence (space separated) of code points.
      *
      * @param string $code
      * @return false|string
@@ -121,6 +218,8 @@ class Unicode {
     }
 
     /**
+     * Convert UTF-8 encoded string to lower case letters.
+     *
      * @param string $string
      * @return string
      */
@@ -129,6 +228,8 @@ class Unicode {
     }
 
     /**
+     * Convert UTF-8 encoded string to upper case letters.
+     *
      * @param string $string
      * @return string
      */
@@ -136,6 +237,12 @@ class Unicode {
         return mb_strtoupper($string, cp);
     }
 
+    /**
+     * Convert first letter of string to upper case considering UTF-8 encoding.
+     *
+     * @param string $string
+     * @return string
+     */
     public static function upFirst(string $string) {
         return mb_strtoupper(self::char($string)) . self::sub($string, 1);
     }

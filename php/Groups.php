@@ -88,7 +88,9 @@ class Groups {
         $file = $this->getLabelFile();
 
         $data = file($file); //read whole file and parse it into array or rows
-        $groups = [];
+        $groups = [
+            'filter' => [], //list of available filters for client
+        ];
 
         foreach ($data as $row) {
             $row = trim($row);
@@ -161,12 +163,35 @@ class Groups {
 
         echo PHP_EOL . 'Group recapitulation:' . PHP_EOL;
         foreach ($groups as $name => $group) {
+            if ('filter' === $name) {
+                continue; //this is not an emoji group
+            }
             $count = 0;
-            foreach ($group as $type) {
-                $count += count($type);
+            foreach ($group as $type => $emoji) {
+                $count += count($emoji);
+
+                if (Unicode::UNICODE_GROUP_SKIN_TONE === $type) {
+                    unset($groups[$name][$type]);
+                    $filter = [];
+                    foreach ($emoji as $char) {
+                        $filter[$char] = $emoji;
+                        unset($filter[$char][array_search($char, $filter[$char], true)]);
+                    }
+                    $groups['filter'][$type] = $filter;
+                }
             }
             echo '  Group ', $name, ' contains ', $count, ' emoji' . PHP_EOL;
         }
+
+        $filters = Unicode::EMOJI_FILTER_GENDER;
+        foreach ($filters as $name => $filter) {
+            unset($filters[$name]);
+            foreach ($filter as $key => $emoji) {
+                $filter[$key] = Unicode::chrS($emoji);
+            }
+            $filters[Unicode::chrS($name)] = $filter;
+        }
+        $groups['filter']['gender'] = $filters;
 
         $groups = self::orderGroups($groups);
 
