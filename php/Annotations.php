@@ -69,6 +69,12 @@ class Annotations extends \xml\Helper {
             }
 
             $char = $annotation->attributes->CP;
+
+            //Annotations may contain keycap emoji without the variation selector so we should fix it
+            if (Unicode::contains($char, Unicode::chrS('20e3')) && !Unicode::contains($char, Unicode::chrS('fe0f'))) {
+                $char = Unicode::char($char) . Unicode::chrS('fe0f') . Unicode::chrS('20e3');
+            }
+
             echo '  Processing annotation for emoji ', $char, '... ';
 
             if (!array_key_exists($char, $emoji)) {

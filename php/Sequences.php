@@ -136,8 +136,9 @@ class Sequences {
 
         echo PHP_EOL, 'Found ', count($emoji) . ' emoji.', PHP_EOL;
 
+        $isset = function($a) { return isset($a); }; //by default array_filter() removes all false-like elements but we need to keep values "0"
         foreach ($emoji as &$char) {
-            $char = array_filter($char); //remove NULL values which represent default ones
+            $char = array_filter($char, $isset); //remove NULL values which represent default ones
         }
 
         echo PHP_EOL, 'Finished processing sequence', PHP_EOL;

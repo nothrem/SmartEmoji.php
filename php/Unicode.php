@@ -15,6 +15,30 @@ class Unicode {
     }
 
     /**
+     * Search one string in another one considering UTF-8 encoding
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @param int $offset
+     * @return false|int
+     */
+    public static function pos(string $haystack, string $needle, int $offset = 0) {
+        return mb_strpos($haystack, $needle, $offset, cp);
+    }
+
+    /**
+     * Check if one string contains the other one considering UTF-8 encoding.
+     *
+     * @param string $haystack
+     * @param string $needle
+     * @param int $offset
+     * @return bool
+     */
+    public static function contains(string $haystack, string $needle, int $offset = 0) {
+        return false !== self::pos($haystack, $needle, $offset);
+    }
+
+    /**
      * Returns substring based on UNICODE characters (encoded in UTF-8)
      * @param string $string
      * @param int|string $start Starting character. When string is given, it's length is used to find starting character.

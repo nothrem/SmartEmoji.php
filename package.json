@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "grunt compile",
-	"php-parse": "php php/parse.php en_UK,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU &> /dev/null",
-	"win-parse": "php php\\parse.php en_UK,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU > NUL"
+	"php-parse": "php php/parse.php en_GB,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU &> /dev/null",
+	"win-parse": "php php\\parse.php en_GB,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU > NUL"
   },
   "repository": {
     "type": "git",
