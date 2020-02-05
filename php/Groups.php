@@ -4,6 +4,7 @@ namespace emoji;
 
 require_once 'Unicode.php';
 use emoji\Unicode AS U;
+use xml\Data;
 
 class Groups {
     protected const DEFAULT_DATA_DIR = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'core';
@@ -54,6 +55,33 @@ class Groups {
         $group = str_replace('&', '_', $group);
         $group = self::fixSemicolon($group);
         return $group;
+    }
+
+    /**
+     * Convert PHP indexed array into ordered array compatible with JSON
+     * Note: in PHP array with string keys is always ordered but in JSON it would convert to object; but we need array as well.
+     *
+     * @param array $groups
+     * @return array
+     */
+    protected static function orderGroups(array $groups) {
+        $output = [];
+        foreach ($groups as $name => $group) {
+            if (is_array($group)) {
+                $output[] = [
+                    'id' => $name,
+                    Data::JSON_LIST => self::orderGroups($group),
+                ];
+            }
+            elseif (is_numeric($name)) {
+                $output[] = $group;
+            }
+            else {
+                throw new \RuntimeException('Unexpected group key '.$name.' with value '.var_export($group, true));
+            }
+        }
+
+        return $output;
     }
 
     public function parse() {
@@ -139,6 +167,8 @@ class Groups {
             }
             echo '  Group ', $name, ' contains ', $count, ' emoji' . PHP_EOL;
         }
+
+        $groups = self::orderGroups($groups);
 
         echo PHP_EOL, 'Finished processing groups', PHP_EOL, 'hint: if your console does not support UTF-8 you can dump the output into a file and then open it with UTF-8 encoding to see the emoji.', PHP_EOL;
 

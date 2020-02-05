@@ -7,6 +7,7 @@ namespace xml;
 class Data {
 
     //Keys to make JSON shorter (each value must be unique
+    public const JSON_LIST = 'l';
     public const JSON_TYPE = 't';
     public const JSON_NAME = 'n';
     public const JSON_MODIFIER = 'm';

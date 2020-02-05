@@ -65,13 +65,13 @@ else {
     echo PHP_EOL, 'Translating emoji groups...', PHP_EOL;
 
     foreach ($main->getLanguages() as $lang) {
-        foreach ($groups as $group => $data) {
-            echo '  Translating group ', $group, ' into language ', $lang, '...';
+        foreach ($groups as $group) {
+            echo '  Translating group ', $group['id'], ' into language ', $lang, '...';
             if (!array_key_exists($lang, $groupTranslations)) {
                 $groupTranslations[$lang] = [];
             }
-            $groupTranslations[$lang][$group] = $main->getCharacterLabel($lang, $group);
-            echo ' Translation: "', $groupTranslations[$lang][$group], '"', PHP_EOL;
+            $groupTranslations[$lang][$group['id']] = $main->getCharacterLabel($lang, $group['id']);
+            echo ' Translation: "', $groupTranslations[$lang][$group['id']], '"', PHP_EOL;
         }
     }
 
