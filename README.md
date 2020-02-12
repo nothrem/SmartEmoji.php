@@ -57,10 +57,10 @@ On Windows use script:
 If you want to add more languages not included in this repository, run this command from the root folder of this project:
 
 ### Linux & MacOS X
-```> php php/parse.php xx_XX,yy_YY,zz_ZZ &> /dev/null```
+```> php bin/parse.php xx_XX,yy_YY,zz_ZZ &> /dev/null```
 
 ### Windows
-```> php php/parse.php xx_XX,yy_YY,zz_ZZ > NUL```
+```> php bin/parse.php xx_XX,yy_YY,zz_ZZ > NUL```
 
 This will parse the data from the included CLDR package, update file `groups.json` and create files for languages
 `xx_XX`, `yy_YY` and `zz_ZZ` (_please, replace these placeholders with relevant language codes_).
@@ -68,8 +68,8 @@ This will parse the data from the included CLDR package, update file `groups.jso
 ## Verbose parsing
 For verbose output use:
 
-```> php php/parse.php xx_XX,yy_YY,zz_ZZ```
+```> php bin/parse.php xx_XX,yy_YY,zz_ZZ```
 
 To dump the verbose output into file (to check the emoji) use:
 
-```> php php/parse.php xx_XX,yy_YY,zz_ZZ > parse_dump.txt```
+```> php bin/parse.php xx_XX,yy_YY,zz_ZZ > parse_dump.txt```

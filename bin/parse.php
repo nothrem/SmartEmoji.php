@@ -11,6 +11,8 @@ try {
 
 $langs = $argv[1] ?? [];
 
+set_include_path(__DIR__.'/../php');
+
 //Find all emoji defined by UNICODE
 require_once 'Sequences.php';
 

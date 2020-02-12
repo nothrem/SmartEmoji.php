@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "grunt compile",
-	"php-parse": "php php/parse.php en_GB,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU &> /dev/null",
-	"win-parse": "php php\\parse.php en_GB,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU > NUL"
+    "php-parse": "php bin/parse.php en_GB,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU &> /dev/null",
+    "win-parse": "php bin\\parse.php en_GB,en_US,de_DE,de_CH,fr_FR,es_ES,es_AR,es_MX,it_IT,pt_PT,pt_BR,cs_CZ,sk_SK,hr_HR,sr_RS,pl_PL,ro_RO,ru_RU > NUL"
   },
   "repository": {
     "type": "git",
@@ -26,12 +26,7 @@
   },
   "homepage": "https://github.com/nothrem/SmartEmoji#readme",
   "devDependencies": {
-    "grunt": "^1.0.4",
-    "grunt-contrib-less": "^2.0.0",
-    "grunt-contrib-uglify-es": "^3.3.0",
-    "grunt-replace": "^1.0.1",
-    "less": "^3.10.3",
-    "less-plugin-clean-css": "^1.5.1"
+    "grunt": "^1.0.4"
   },
   "dependencies": {}
 }
