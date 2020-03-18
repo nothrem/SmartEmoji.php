@@ -36,9 +36,9 @@ update the Core CLDR package in the data folder and use the included parse scrip
 
 ## NPM parser
 Parsing using only NPM and Javascript is not available yet.
-Please install PHP 7.1 if you want to parse new emoji or add more languages.
+Please install PHP 7.2 with `mbstring` extension if you want to parse new emoji or add more languages.
 
-##NPM and PHP parser
+## NPM and PHP parser
 To update the existing list of emoji and language files, you can run NPM script from the root folder of this project.
 
 ### Linux & MacOS X
@@ -46,7 +46,7 @@ To update the existing list of emoji and language files, you can run NPM script 
 
 This will parse the emoji and translations for predefined list of languages.
 
-_PHP 7.1 or newer must be installed and configured in PATH._
+_PHP 7.2 or newer with `mbstring` extension must be installed and configured in PATH._
 
 ### Windows
 On Windows use script:
