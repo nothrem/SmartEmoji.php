@@ -9,8 +9,13 @@ class Data {
     public const JSON_LIST = 'l';
     public const JSON_TYPE = 't';
     public const JSON_NAME = 'n';
+    public const JSON_ICON = 'i';
+    public const JSON_ROW  = 'r';
     public const JSON_MODIFIER = 'm';
     public const JSON_KEYWORDS = 'k';
+    public const JSON_KEY_DELIM = '|';
+    public const EMOJI_MODIFIER_CHAR = ':'; //character that marks modified emoji (short name separator)
+
 
     public const JSON_TYPES = [
         'Basic_Emoji' => null, //basic type is default so no need to print it

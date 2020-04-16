@@ -136,6 +136,16 @@ class Unicode {
     }
 
     /**
+     * Returns substring based on UNICODE characters (encoded in UTF-8) without last word
+     * @param string $string
+     * @return string
+     */
+    public static function trimlast(string $string) : string {
+        $len = self::len($string);
+        return mb_substr($string, 0, $len-1, cp);
+    }
+
+    /**
      * Returns substring based on UNICODE characters (encoded in UTF-8)
      * @param string $string
      * @param int|string $start Starting character. When string is given, it's length is used to find starting character.
@@ -204,6 +214,20 @@ class Unicode {
     }
 
     /**
+     * Returns human-readable (hexadecimal) code point of a last word of UNICODE character (given as UTF-8 string or numerical code point).
+     *s
+     * @param string|int $char One character or longer string (encoded in UTF-8).
+     * @return string
+     */
+    public static function codelast($char) {
+        if (is_string($char)) {
+
+            $char = self::ord($char, self::len($char)-1);
+        }
+        return trim(dechex($char));
+    }
+
+    /**
      * Returns human-readable (hexadecimal) code point of a UNICODE character (given as UTF-8 string or numerical code point).
      *s
      * @param string|int $char One character or longer string (encoded in UTF-8).
@@ -244,6 +268,7 @@ class Unicode {
      * @return string
      */
     public static function upFirst(string $string) {
-        return mb_strtoupper(self::char($string)) . self::sub($string, 1);
+//        return mb_strtoupper(self::char($string)) . self::sub($string, 1);
+        return self::char($string) . self::sub($string, 1);
     }
 }

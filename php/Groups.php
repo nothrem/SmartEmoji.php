@@ -7,7 +7,10 @@ use emoji\Unicode AS U;
 use xml\Data;
 
 class Groups {
-    protected const DEFAULT_DATA_DIR = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'core';
+    public const DELIMITER  = '$';
+    public const QUALIFIED  = 'fully';
+
+    protected const DEFAULT_DATA_DIR = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'emoji';
     protected const EMOJI_SEQUENCE_CHAR = '-'; //characters that separates list of emoji
     protected const EMOJI_DERIVED_START = '{'; //characters that starts multi-character emoji
     protected const EMOJI_DERIVED_END = '}';   //characters that ends multi-character emoji
@@ -30,7 +33,7 @@ class Groups {
      * @param string $path (optional, default: common\properties) Change if you want to load file from a different folder.
      * @return string Name of the file
      */
-    protected function getLabelFile(string $name = 'labels.txt', string $path = 'common' . DIRECTORY_SEPARATOR . 'properties') : string {
+    protected function getLabelFile(string $name = 'emoji-test-icons.txt', string $path = NULL) : string {
         $file = realpath($this->path . DIRECTORY_SEPARATOR . ($path ? $path . DIRECTORY_SEPARATOR : '') . $name);
 
         if (!file_exists($file)) {
@@ -52,7 +55,7 @@ class Groups {
     protected static function getGroupName(string $group) {
         $group = preg_replace('/\s+/', '', $group); //works as trim() but also between words
         $group = strtolower($group);
-        $group = str_replace('&', '_', $group);
+        $group = str_replace(array("&", "-"), '_', $group);
         $group = self::fixSemicolon($group);
         return $group;
     }
@@ -64,16 +67,16 @@ class Groups {
      * @param array $groups
      * @return array
      */
-    protected static function orderGroups(array $groups) {
+    protected static function orderGroups(array $groups, array $icons) {
         $output = [];
         foreach ($groups as $name => $group) {
             if (is_array($group)) {
                 $output[] = [
-                    'id' => $name,
-                    Data::JSON_LIST => self::orderGroups($group),
+                    Data::JSON_ICON => $icons[$name],
+                    Data::JSON_NAME => $name,
+                    Data::JSON_LIST => self::orderGroups($group,$icons),
                 ];
-            }
-            elseif (is_numeric($name)) {
+            }  elseif (is_numeric($name)) {
                 $output[] = $group;
             }
             else {
@@ -84,117 +87,144 @@ class Groups {
         return $output;
     }
 
+    protected static function getAllModifiers(array $group) {
+        $output = [];
+        foreach ($group[Data::JSON_LIST] as $subgroup) {
+            foreach ($subgroup[Data::JSON_LIST] as $key => $value ){
+                $output[$key] = trim($value[Data::JSON_MODIFIER]);
+            }
+        }
+        return $output;
+    }
+
+
     public function parse() {
         $file = $this->getLabelFile();
 
         $data = file($file); //read whole file and parse it into array or rows
-        $groups = [
-            'filter' => [], //list of available filters for client
-        ];
+        $groups = [];
+ //       $icons = [];
+        $token = [];
+        $tokenEmoji = [];
+        $emojiStat = [];
+        $tokens = [];
+        $groupName = '';
+        $token = (object)$groups;
 
         foreach ($data as $row) {
             $row = trim($row);
-            if ('' === $row || '#' === $row[0]) {
+            if ('' === $row) {
                 continue; //this is empty row or a comment, ignore it
             }
 
-            if (preg_match('/^\[(?<list>[^\]]+)\]\s+;(?<group>[^;]+);(?<type>.*)$/', $row, $matches)) {
-                //fix $matches into better format
-                $matches = (object)$matches; //allow to access as object
-                $matches->group = self::getGroupName($matches->group);
-                $matches->type = self::getGroupName($matches->type);
-                $matches->list = self::fixSemicolon($matches->list);
-                $matches->found = [];
-
-                //check how many characters there are in the list
-                $count = U::len($matches->list);
-
-                echo 'Processing group ', $matches->group, ':', $matches->type, PHP_EOL;
-
-                //Note: reading Nth character of UTF-8 string takes N^2 time (because it must be parsed char by char each time)
-                //For that reason we will always split the string to 1st character and the rest
-                //...until we reach the end (i.e. empty list)
-                while (strlen($matches->list)) {
-                    $char = U::sub($matches->list, 0, 1); //get first char
-                    $matches->list = substr($matches->list, strlen($char)); //get the rest; process as single-byte string to process it faster
-
-                    if (self::EMOJI_DERIVED_START === $char) { //process multi-character emoji
-                        $end = strpos($matches->list, self::EMOJI_DERIVED_END);
-                        $char = substr($matches->list, strlen(self::EMOJI_DERIVED_START)-1, $end - strlen(self::EMOJI_DERIVED_END) + 1); //get chars between start and end character
-                        $matches->list = substr($matches->list, $end + strlen(self::EMOJI_DERIVED_END));
-                        echo '  * Found multi-character emoji ', $char, ' (', U::len($char), ' chars: ';
-                        $split = [];
-                        for ($j = 0, $count = U::len($char); $j < $count; ++$j) {
-                            $split[] = U::codepoint($char, $j);
+            if (self::DELIMITER === $row[0]) {
+                $titleLine = $row;
+                if (preg_match('/^\$(?<keyword>[^$:]+):(?<name>[^;]+);(?<icon>.*)$/', $row, $token)) {
+                    $token = (object)$token;                                                 //allow to access as object
+                    if ('group' === trim($token->keyword)) {
+                        $groupName = self::getGroupName($token->name);
+                            $groups[$groupName] = [
+                                Data::JSON_ICON => $token->icon,
+                                Data::JSON_NAME => $groupName,
+                                Data::JSON_LIST => [],
+                            ];
+                            $emojiStat[$groupName][Data::JSON_ROW]=trim($titleLine);
+                    } elseif ('subgroup' === trim($token->keyword)) {
+                        $subGroupName  = self::getGroupName($token->name);
+                            $groups[$groupName][Data::JSON_LIST][$subGroupName] = [
+                                Data::JSON_ICON => $token->icon,
+                                Data::JSON_NAME => $subGroupName,
+                                Data::JSON_LIST => [],
+                            ];
+                            $emojiStat[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_ROW]=str_repeat(' ',4).trim($titleLine);
+                    }
+                }
+                continue;                                                                   //this is a comment, ignore it
+            } else {
+                $tokenEmoji = explode(self::DELIMITER,$row);
+                if (!strpos($tokenEmoji[0], self::QUALIFIED)) continue;
+                $tokenEmoji = explode(' ',$tokenEmoji[1]);
+                $emojiIcon = $tokenEmoji[1];
+                $emojiName = trim( implode ( ' ', array_slice( $tokenEmoji, 3 )));
+//-----------------------------------------------------------------------------------------------------------
+                if ($groupName !=='filters' && $groupName !=='flags') {
+                    if (!is_array($allModifiers)){
+                        $allModifiers = self::getAllModifiers($groups['filters']);
+                    }
+                    $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][$emojiIcon] = [
+                        Data::JSON_NAME => $emojiName,
+                    ];
+                    if (strpos($emojiName, Data::EMOJI_MODIFIER_CHAR)) {
+                        $tokens = explode(Data::EMOJI_MODIFIER_CHAR, $emojiName);
+                        if (!strpos($tokens[1], ',')){
+                            $tokens[1] = $tokens[1] . ',';
                         }
-                        echo implode(', ', $split), ')', PHP_EOL;
-                        $matches->found[] = $char;
-                    }
-                    else if (strlen($matches->list) && self::EMOJI_SEQUENCE_CHAR === $matches->list[0]) { //process whole sequence of characters
-                        $end = U::char($matches->list, self::EMOJI_SEQUENCE_CHAR);
-                        echo '  * Processing emoji sequence ', $char, ' - ', $end, ' (', U::codepoint($char), ' - ', U::codepoint($end), ')' . PHP_EOL;
-                        $matches->list = U::sub($matches->list, self::EMOJI_SEQUENCE_CHAR . $end);
-
-                        for ($j = U::ord($char), $k = U::ord($end); $j <= $k; ++$j) {
-                            echo '    * Found emoji ', U::chr($j), ' (', U::codepoint($j), ')', PHP_EOL;
-                            $matches->found[] = U::chr($j);
+                        $thisKeys = explode(',', $tokens[1]);
+                        $emojiModifier = '';
+                        foreach ($thisKeys as $thisKey) {
+                            $thisKey=trim($thisKey);
+                            if($thisKey!==''){
+                                is_null($allModifiers[$thisKey]) ? null : $emojiModifier = $emojiModifier . $allModifiers[$thisKey] . ',';
+                            }
                         }
+                        $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][$emojiIcon] = [
+                            Data::JSON_MODIFIER => $emojiModifier,
+                        ];
                     }
-                    else { //just a single emoji
-                        echo '  * Found emoji ', $char, ' (', U::codepoint($char), ')', PHP_EOL;
-                        $matches->found[] = $char;
+                } else {
+                    $emojiNames =  explode(Data::EMOJI_MODIFIER_CHAR, $emojiName);
+                    if($groupName =='filters') {
+                        $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][trim($emojiNames[0])] = [
+                            Data::JSON_ICON => $emojiIcon,
+                            Data::JSON_NAME => trim($emojiNames[1]),
+                            Data::JSON_MODIFIER => trim($emojiNames[2]),
+                        ];
+                    } else {
+                        $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][$emojiIcon] = [
+                            Data::JSON_NAME => trim($emojiNames[1]),
+                        ];
                     }
                 }
-
-                echo '  => Group contains ', count($matches->found), ' emoji', PHP_EOL;
-
-                if (!array_key_exists($matches->group, $groups)) {
-                    $groups[$matches->group] = [];
-                }
-                if (!array_key_exists($matches->type, $groups[$matches->group])) {
-                    $groups[$matches->group][$matches->type] = [];
-                }
-                $groups[$matches->group][$matches->type] = array_merge($groups[$matches->group][$matches->type], $matches->found);
-            }
-            else {
-                echo "ERROR: row has unexpected format: $row", PHP_EOL;
             }
         }
-
         echo PHP_EOL . 'Group recapitulation:' . PHP_EOL;
+
+        $allGroupEmoji=[];
+        $countEmojis = 0;
         foreach ($groups as $name => $group) {
-            if ('filter' === $name) {
-                continue; //this is not an emoji group
-            }
-            $count = 0;
-            foreach ($group as $type => $emoji) {
-                $count += count($emoji);
-
-                if (Unicode::UNICODE_GROUP_SKIN_TONE === $type) {
-                    unset($groups[$name][$type]);
-                    $filter = [];
-                    foreach ($emoji as $char) {
-                        $filter[$char] = $emoji;
-                        unset($filter[$char][array_search($char, $filter[$char], true)]);
-                    }
-                    $groups['filter'][$type] = $filter;
+            $countEmojisInGroup = 0;
+            $countSubGroups = count($group[Data::JSON_LIST]);
+            foreach ($group[Data::JSON_LIST] as $type => $subGroup) {
+                $countEmojisInSubGroup = count($subGroup[Data::JSON_LIST]);
+                foreach ($subGroup[Data::JSON_LIST] as $key => $value) {
+                    $allGroupEmoji[]=$key;
                 }
-            }
-            echo '  Group ', $name, ' contains ', $count, ' emoji' . PHP_EOL;
+                $countEmojisInGroup += $countEmojisInSubGroup;
+                $emojiStat[$name][Data::JSON_LIST][$type][Data::JSON_ROW] .= '; ';
+                $emojiStat[$name][Data::JSON_LIST][$type][Data::JSON_ROW] .= str_repeat('.',50-mb_strlen($emojiStat[$name][Data::JSON_LIST][$type][Data::JSON_ROW]));
+                $emojiStat[$name][Data::JSON_LIST][$type][Data::JSON_ROW] .= 'emoji: ' . $countEmojisInSubGroup . PHP_EOL;
+             }
+            $emojiStat[$name][Data::JSON_ROW] .= '; subgroups: ' . $countSubGroups . '; ';
+            $emojiStat[$name][Data::JSON_ROW] .= str_repeat ('.',50-mb_strlen($emojiStat[$name][Data::JSON_ROW]));
+            $emojiStat[$name][Data::JSON_ROW] .= 'emoji: ' . $countEmojisInGroup . PHP_EOL;
+            $countEmojis += $countEmojisInGroup;
+            echo '  Group ', $name, ' contains ', $countEmojisInGroup, ' emoji' . PHP_EOL;
         }
+//      $groups = self::orderGroups($groups,$icons);
+//        $groups['other'] = [
+//            Data::JSON_ICON => U::chrS('"\u2620"'),
+//            Data::JSON_NAME => 'other',
+//            Data::JSON_LIST => [],
+//        ];
+//        $groups['other'][Data::JSON_LIST]['other'] = [
+//            Data::JSON_ICON => U::chrS('"\u2620"'),
+//            Data::JSON_NAME => 'other',
+//            Data::JSON_LIST => [],
+//        ];
+        $groups['ALL'] = $allGroupEmoji;
+        $groups['STAT'] = $emojiStat;
 
-        $filters = Unicode::EMOJI_FILTER_GENDER;
-        foreach ($filters as $name => $filter) {
-            unset($filters[$name]);
-            foreach ($filter as $key => $emoji) {
-                $filter[$key] = Unicode::chrS($emoji);
-            }
-            $filters[Unicode::chrS($name)] = $filter;
-        }
-        $groups['filter']['gender'] = $filters;
-
-        $groups = self::orderGroups($groups);
-
+        echo '====================TOTAL EMOJI EQUAL= ',$countEmojis;
         echo PHP_EOL, 'Finished processing groups', PHP_EOL, 'hint: if your console does not support UTF-8 you can dump the output into a file and then open it with UTF-8 encoding to see the emoji.', PHP_EOL;
 
         return $groups;

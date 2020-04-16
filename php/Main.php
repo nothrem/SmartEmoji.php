@@ -31,7 +31,6 @@ class Main extends \xml\Helper {
                     try {
                         $labels = $xml->filterXml('characterLabel');
                         foreach ($labels as $label) {
-//                            echo 'Processing label '; var_dump($label); echo PHP_EOL;
                             if (isset($label->attributes->TYPE, $label->value)) {
                                 echo '    Found label ', $label->attributes->TYPE, ' with translation ', $label->value, PHP_EOL;
                                 $this->labels[$lang][$label->attributes->TYPE] = $label->value;

@@ -21,7 +21,9 @@ class Annotations extends \xml\Helper {
             }
 
             foreach ($files as $file) {
+                echo 'BEGIN LANG=',$lang,'_FILES= ',$file,' COUNT= ',count($this->emoji[$lang]),PHP_EOL;
                 $this->parseFile($file, $lang);
+                echo 'END LANG=',$lang,'_FILES= ',$file,' COUNT= ',count($this->emoji[$lang]),PHP_EOL;
             }
 
             foreach ($this->emoji[$lang] as &$data) {
@@ -43,7 +45,7 @@ class Annotations extends \xml\Helper {
                     }
                 }
             }
-
+            echo '  =TOTAL= annotations in ',$lang,' found: ', count($this->emoji[$lang]), PHP_EOL;
         }
 
         return $this->emoji;
