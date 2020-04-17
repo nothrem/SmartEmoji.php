@@ -176,9 +176,7 @@ else {
             echo 'Saving ', count($allEmojiInGroupList ?? []), ' emoji and ', count($groupTranslations[$lang] ?? []), ' groups into file ', $annotationFile, PHP_EOL;
             file_put_contents($annotationFile, json_encode([
                 'groups' => $groupTranslations[$lang] ?? [],
-                'gender' => $filter[$lang][Data::JSON_LIST]['gender'] ?? [],
-                'skin' => $filter[$lang][Data::JSON_LIST]['skin'] ?? [],
-                'hair' => $filter[$lang][Data::JSON_LIST]['hair'] ?? [],
+                'filters' => $filter[$lang][Data::JSON_LIST] ?? [],
                 'keywords' => $keywords[$lang] ?? [],
             ], JSON_THROW_ON_ERROR + JSON_UNESCAPED_UNICODE)); //Crash on invalid JSON instead of creating empty file
 
