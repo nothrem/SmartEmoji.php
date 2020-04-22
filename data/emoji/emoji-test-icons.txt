@@ -32,16 +32,18 @@ $   • The groups and subgroups are illustrative. See the Emoji Order chart for
 
 $ group: filters;✂️
 
-$ subgroup: skin;🧑🏽
+$ subgroup: skin;🕶️
 
+FFFFF                                      ; fully-qualified     $ 🗑️ E5.0 reset skin tone: 🗑️:00000
 1F3FB                                      ; fully-qualified     $ 🧑🏻 E5.0 light skin tone: 🏻:1F3FB
 1F3FC                                      ; fully-qualified     $ 🧑🏼 E5.0 medium-light skin tone: 🏼:1F3FC
 1F3FD                                      ; fully-qualified     $ 🧑🏽 E5.0 medium skin tone: 🏽:1F3FD
 1F3FE                                      ; fully-qualified     $ 🧑🏾 E5.0 medium-dark skin tone: 🏾:1F3FE
 1F3FF                                      ; fully-qualified     $ 🧑🏿 E5.0 dark skin tone: 🏿:1F3FF
 
-$ subgroup: hair;👱
+$ subgroup: hair;✂️
 
+FFFFF                                      ; fully-qualified     $ 🗑️ E5.0 reset hair: 🗑️:00000
 1F9B0                                      ; fully-qualified     $ ‍🦰 E12.1 red hair: 🦰:1F9B0
 1F9B1                                      ; fully-qualified     $ ‍🦱 E12.1 curly hair: 🦱:1F9B1
 1F9B2                                      ; fully-qualified     $ ‍🦲 E12.1 bald: 🦲:1F9B2
@@ -49,8 +51,9 @@ $ subgroup: hair;👱
 1F471                                      ; fully-qualified     $ 👱 E0.6 blond hair: 👱:1F471
 
 
-$ subgroup: gender;👩
+$ subgroup: gender;👫
 
+FFFFF                                      ; fully-qualified     $ 🗑️ E5.0 reset gender: 🗑️:00000
 1F468                                      ; fully-qualified     $ 👨 E0.6 man: 👨:1F468
 1F469                                      ; fully-qualified     $ 👩 E0.6 woman: 👩:1F469
 1F9D1                                      ; fully-qualified     $ 🧑 E5.0 person: 🧑:1F9D1
