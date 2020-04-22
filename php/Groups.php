@@ -147,7 +147,7 @@ class Groups {
                 $emojiIcon = $tokenEmoji[1];
                 $emojiName = trim( implode ( ' ', array_slice( $tokenEmoji, 3 )));
 //-----------------------------------------------------------------------------------------------------------
-                if ($groupName !=='filters' && $groupName !=='flags') {
+                if ($groupName !=='filters') {
                     if (!is_array($allModifiers)){
                         $allModifiers = self::getAllModifiers($groups['filters']);
                     }
@@ -164,26 +164,22 @@ class Groups {
                         foreach ($thisKeys as $thisKey) {
                             $thisKey=trim($thisKey);
                             if($thisKey!==''){
-                                is_null($allModifiers[$thisKey]) ? null : $emojiModifier = $emojiModifier . $allModifiers[$thisKey] . ',';
+                                is_null($allModifiers[$thisKey]) ? null : $emojiModifier = $emojiModifier . $allModifiers[$thisKey] . '_';
                             }
                         }
-                        $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][$emojiIcon] = [
-                            Data::JSON_MODIFIER => $emojiModifier,
-                        ];
+                        if($emojiModifier !== '') {
+                            $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][$emojiIcon] = [
+                                Data::JSON_MODIFIER => $emojiModifier,
+                            ];
+                        }
                     }
                 } else {
                     $emojiNames =  explode(Data::EMOJI_MODIFIER_CHAR, $emojiName);
-                    if($groupName =='filters') {
-                        $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][trim($emojiNames[0])] = [
-                            Data::JSON_ICON => $emojiIcon,
-                            Data::JSON_NAME => trim($emojiNames[1]),
-                            Data::JSON_MODIFIER => trim($emojiNames[2]),
-                        ];
-                    } else {
-                        $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][$emojiIcon] = [
-                            Data::JSON_NAME => trim($emojiNames[1]),
-                        ];
-                    }
+                    $groups[$groupName][Data::JSON_LIST][$subGroupName][Data::JSON_LIST][trim($emojiNames[0])] = [
+                        Data::JSON_ICON => $emojiIcon,
+                        Data::JSON_NAME => trim($emojiNames[1]),
+                        Data::JSON_MODIFIER => trim($emojiNames[2]),
+                    ];
                 }
             }
         }
