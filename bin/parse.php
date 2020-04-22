@@ -35,6 +35,7 @@ array_shift($emojiStat);       // Remove filter group
 
 //Process emoji annotations (translated names)
 $annotations = [];
+$modified = [];
 if (empty($langs)) {
     echo 'Parameter with language list not found, skipping translation processing.', PHP_EOL;
 }
@@ -121,19 +122,25 @@ else {
             foreach ($curGroup[Data::JSON_LIST] as &$subGroup) {
                 foreach ($subGroup[Data::JSON_LIST] as $key => &$value) {
                     if ($value[Data::JSON_MODIFIER] !== null) {
-                        $thisKeys = explode(',', $value[Data::JSON_MODIFIER]);
-                        foreach ($thisKeys as $thisKey) {
-                            $thisKey=trim($thisKey);
-                            if ($thisKey!=='') $prevEmoji[$thisKey]=$key;
+                        $thisKey =  substr(trim($value[Data::JSON_MODIFIER]), 0,-1) ;
+                        if ($thisKey !== '') {
+                            if (!array_key_exists($thisKey, $modified)) {
+                                $modified[$thisKey] = [
+                                    Data::JSON_LIST => [],
+                                ];
+                            }
+                            $modified[$thisKey][Data::JSON_LIST][$prevEmoji] = $key;
+                            unset($subGroup[Data::JSON_LIST][$key]);
                         }
-                        unset($subGroup[Data::JSON_LIST][$key]);
-                    } else {
-                        $prevEmoji = &$value;
+                    }else {
+                        $prevEmoji = $key;
                     }
                 }
             }
         }
     }
+
+//    echo 'MODIFIER=',var_dump($modified);
 
     //Creation of KEYWORDS object
     $keywords = [];
@@ -178,6 +185,7 @@ else {
                 'groups' => $groupTranslations[$lang] ?? [],
                 'filters' => $filter[$lang][Data::JSON_LIST] ?? [],
                 'keywords' => $keywords[$lang] ?? [],
+                'mode' => $modified ?? [],
             ], JSON_THROW_ON_ERROR + JSON_UNESCAPED_UNICODE)); //Crash on invalid JSON instead of creating empty file
 
         }
