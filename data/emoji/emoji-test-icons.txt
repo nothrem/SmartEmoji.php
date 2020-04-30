@@ -50,7 +50,6 @@ FFFFF                                      ; fully-qualified     $ 🗑️ E5.0 
 1F9B3                                      ; fully-qualified     $ ‍🦳 E12.1 white hair: 🦳:1F9B3
 1F471                                      ; fully-qualified     $ 👱 E0.6 blond hair: 👱:1F471
 
-
 $ subgroup: gender;👫
 
 FFFFF                                      ; fully-qualified     $ 🗑️ E5.0 reset gender: 🗑️:00000
