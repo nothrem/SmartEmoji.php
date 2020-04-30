@@ -36,6 +36,7 @@ array_shift($emojiStat);       // Remove filter group
 //Process emoji annotations (translated names)
 $annotations = [];
 $modified = [];
+$words = [];
 if (empty($langs)) {
     echo 'Parameter with language list not found, skipping translation processing.', PHP_EOL;
 }
@@ -43,6 +44,10 @@ else {
     require_once 'Annotations.php';
 
     $annotations = new \emoji\Annotations();
+    $words = $annotations->parseCsv('sk3-emoji.csv',true);
+
+//   echo 'SK3-CSV=',var_dump($words);
+
     $annotations = $annotations->parse($langs, $emoji);
 
 //Process group translations
@@ -57,6 +62,8 @@ else {
     echo PHP_EOL, 'Translating emoji groups...', PHP_EOL;
 
     foreach ($main->getLanguages() as $lang) {
+        $thislang = explode('-',$lang);
+        $curLang = mb_strtoupper($thislang[0]);
         if (!array_key_exists($lang, $groupTranslations)) {
             $groupTranslations[$lang] = $groups;
         }
@@ -77,17 +84,21 @@ else {
 //            }
 //        }
 
-        foreach ($groups as $curGroup) {
+        foreach ($groupTranslations[$lang] as &$curGroup) {
             echo '  Translating group ', $curGroup[Data::JSON_NAME], ' into language ', $lang, '...';
             $transWord = $main->getCharacterLabel($lang, $curGroup[Data::JSON_NAME]);
-            is_null($transWord) ? null :  $groupTranslations[$lang][$curGroup[Data::JSON_NAME]][Data::JSON_NAME] = $transWord;
-            echo ' Translation: "', $groupTranslations[$lang][$curGroup[Data::JSON_NAME]][Data::JSON_NAME], '"', PHP_EOL;
+            is_null($transWord) ? null :  $curGroup[Data::JSON_NAME] = $transWord;
+            echo ' Translation: "', $curGroup[Data::JSON_NAME], '"', PHP_EOL;
 
-            foreach ($curGroup[Data::JSON_LIST] as $curSubGroup) {
+//            echo '  Translating group ', $curGroup[Data::JSON_NAME], ' into language ', $lang, '...';
+//            $curGroup[Data::JSON_NAME]=$words[$curLang][$curGroup[Data::JSON_NAME]];
+//           is_null($words[$curLang][$curGroup[Data::JSON_NAME]]) ? null :  $curGroup[Data::JSON_NAME]=$words[$curLang][$curGroup[Data::JSON_NAME]];
+//            echo ' Translation: "', $words[$curLang][$curGroup[Data::JSON_NAME]], '"', PHP_EOL;
+
+            foreach ($curGroup[Data::JSON_LIST] as &$curSubGroup) {
                 echo '  Translating subgroup ', $curSubGroup[Data::JSON_NAME], ' into language ', $lang, '...';
-                $transWord = $main->getCharacterLabel($lang, $curSubGroup[Data::JSON_NAME]);
-                is_null($transWord) ? null :  $groupTranslations[$lang][$curGroup[Data::JSON_NAME]][Data::JSON_LIST][$curSubGroup[Data::JSON_NAME]][Data::JSON_NAME] = $transWord;
-                echo ' Translation: "', $groupTranslations[$lang][$curGroup[Data::JSON_NAME]][Data::JSON_LIST][$curSubGroup[Data::JSON_NAME]][Data::JSON_NAME], '"', PHP_EOL;
+                is_null($words[$curLang][$curSubGroup[Data::JSON_NAME]]) ? null :  $curSubGroup[Data::JSON_NAME]=$words[$curLang][$curSubGroup[Data::JSON_NAME]];
+                echo ' Translation: "', $curSubGroup[Data::JSON_NAME], '"', PHP_EOL;
             }
         }
     }
@@ -95,6 +106,8 @@ else {
 
     //Check if Annotations and Sequences match
     foreach ($main->getLanguages() as $lang) {
+        $thislang = explode('-',$lang);
+        $curLang = mb_strtoupper($thislang[0]);
         $annotationL = $annotations[$lang];
         $filter[$lang]=$filters;
         foreach($groupTranslations[$lang] as &$curGroup) {
@@ -108,6 +121,7 @@ else {
                 }
             }
         }
+
  // Translate of filters
         foreach ($filter[$lang][Data::JSON_LIST] as &$subGroup) {
             foreach ($subGroup[Data::JSON_LIST] as $key=>&$value){
@@ -115,6 +129,7 @@ else {
                     $value[Data::JSON_NAME]=$annotationL[$value[Data::JSON_NAME]][Data::JSON_NAME];
                 }
             }
+            $subGroup[Data::JSON_NAME]=$words[$curLang][$subGroup[Data::JSON_NAME]];
         }
 
         // Implementing of the modifiers
