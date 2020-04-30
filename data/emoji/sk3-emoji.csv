@@ -1,0 +1,101 @@
+key,EN,CS,RU,DE,ES,PT,FR,IT,SK,PL,SR,HR,RO
+gender,Gender,Pohlaví,Пол,Geschlecht,Género,Género,Le sexe,Genere,Pohlavie,Płeć,Pol,Spol,Sex
+hair,Hair,Vlasy,Волосы,Haar,Cabello,Cabelo,cheveux,Capelli,Vlasy,Włosy,Kosa,Kosa,Par
+skin,Skin tone,Barva pleti,Цвет кожи,Hautfarbe,Tono de la piel,Tom de pele,Teint,Il tono della pelle,Farba pleti,Kolor skóry,Boja kože,Boja kože,Culoarea pielii
+face_smiling,Smiling smileys,Usměvaví smajlíci,Улыбающиеся смайлики,lächelnde Smilies,Emoticonos sonrientes,Emojis Sorridentes,Emoji souriants,Faccine sorridenti,Usmievavý smajlíci,Uśmiechnięte buźki,Nasmešeni smajlići,Nasmiješeni smajlići,Zambete zambitoare
+face_affection,In love smileys,Zamilovaní smajlíci,Влюбленные смайлики,Liebes- Smilies,Emoticonos enamorados,Emojis apaixonados,Emojis passionnés,Faccine innamorate,Zamilovaný smajlíci,Zakochane buźki,Zaljubljeni smajlići,Zaljubljeni smajlići,Zambete Indragostit
+face_tongue,Smileys with tongue,Smajlíci s jazykem,Смайлики с языком,Smilies mit Zunge,Emoticonos con lengua,Emojis com a língua,Emoji de la langue,Faccine con la lingua,Smajlíci s jazykom,Buźki z językiem,Smajlići sa jezikom,Smajlići sa jezikom,Zambete cu limba
+face_hand,Smileys with hand,Smajlíci s rukou,Смайлики с рукой,Smilies mit Handzeichen,Emoticonos con mano,Emojis com mão,Emojiavec main,Faccine con la mano,Smajlíci s rukou,Buźki z dłonią,Smajlići sa rukama,Smajlići sa rukama,Zambete cu mana
+face_neutral_skeptical,Skeptical smileys,Zamračení smajlíci,Недовольные смайлики,Skeptische Smilies,Emoticonos escépticos,Emojis céticos,Emojis sceptiques,Faccine scettiche,Zamračený smajlíci,Sceptyczne buźki,Skeptični smajlići,Skeptični smajlići,Zambete sceptice
+face_sleepy,Sleepy smileys,Ospalí smajlíci,Сонные смайлики,Schlafende Smilies,Emoticonos soñolientos,Emojis Sonolentos,Emoji endormis,Faccine assonnate,Ospalý smajlíci ,Śpiące buźki,Uspavani smajlići,Uspavani smajlići,Zambete somnoroase
+face_unwell,Sick smileys,Nemocní smajlíci,Болезненные смайлики,Kranke Smilies,Emoticonos enfermos,Emojis Enfermo,Emojis malades,Faccine malate,Chorý smajlíci,Chore buźki,Boležljivi smajlići,Boležljivi smajlići,Zambete bolnave
+face_hat,Smileys with hat,Smajlíci s kloboukem,Смайлики в шляпе,Smilies mit Hut,Emoticonos con sombrero,Emojis com chapéu,Emoji avec chapeau,Faccine con cappello,Smajlíci s klobúkom,Buźki z kapeluszem,Smajlići sa šeširom,Smajlići sa šeširom,Zambete cu palarie
+face_glasses,Smileys with glasses,Smajlíci s brýlemi,Смайлики в очках,Smilies mit Brillen,Emoticonos con gafas,Emojis com óculos,Emoji avec lunettes,Faccine con gli occhiali, Smajlíci s okuliarmi ,Buźki w okularach,Smajlići sa naočarima,Smajlići sa naočalama,Zambete cu ochelari
+face_concerned,Concerned smileys,Ustaraní smajlíci,Взволнованные смайлики,Besorgte Smilies,Emoticonos preocupados,Emojis preocupados ,Emojis inquites,Faccine preoccupate,Ustaraný smajlíci,Zmartwione buźki,Zabrinuti smajlići,Zabrinuti smajlići,Zambete ingrijorate
+face_negative,Angry smileys,Naštvaní smajlíci,Злобные смайлики,Wütende Smilies,Emoticonos enojados,Emojis zangados,Emojisen colère,Faccine arrabbiate,Nahnevaný smajlíci,Pogniewane buźki,Ljuti smajlići,Ljuti smajlići,Zambete nervoase
+face_costume,Costumes,Kostýmy,Смалики в масках,Kostüme,Emoticonos enmascarados,Emojis mascarados,Emoji masqués,Faccine mascherate,Kostýmy,Kostiumy,Kostimi,Kostimi,Costume
+cat_face,Cats,Kočky,Кошки,Katzen,Gatos,Gatos,Chats,Gatti,Mačky,Koty,Mačke,Mačke,Pisici
+monkey_face,Monkeys,Opice,Обезьяны,Affen,Monos,Macacos,Singes,Scimmie,Opice,Małpy,Majmuni,Majmuni,Maimute
+emotion,Emoticons,Emotikony,Чувства,Emoticons,Emoticonos,Emojis,Emojis/Émoticônes,Emoticons,Emotikony,Emotikony,Emotikoni,Emotikoni,Emoticoane
+hand_fingers_open,Hand shakes,Mávající ruce,Открытая ладонь,Handschlag,Apretones de manos,Apertos de mão,Poignée de main,Mani aperte,Mávajúce ruky,Uściski dłoni,Rukovanje,Rukovanje,Strangere de mana
+hand_fingers_partial,Hand gestures,Gesta rukou,Жесты рукой,Handbewegungen,Gestos con las manos,Gestos de mão,Gestes de la main,Gesti delle mani,Gestá rúk,Gesty rękami,Geste rukama,Geste rukama,Gesturi cu mana
+hand_single_finger,Hands pointing,Ukazující ruce,Указательные жесты,Zeigende Hände,Manos apuntando,Apontando as mãos,Mains pointant,Mani che indicano,Ukazujúce ruky,Wskazania rękami,Ruke koje pokazuju,Ruke koje pokazuju,Arata cu mana
+hand_fingers_closed,Hand fists,Ruce v pěst,Жесты с кулаком,Fäuste,Puño de mano,Punho de mão,Poings à la main,Pogno,Ruky v päsť,Pięści,Ruka stisnuta u šaku,Ruka stisnuta u šaku,Pumni
+hands,Two hands,Dvě ruce,Две руки,Zwei Hände,Dos manos,Duas mãos,Deux mains,Due mani,Dve ruky,Dwie ręce,Dve ruke,Dvije ruke,Doua maini
+hand_prop,Hand actions,Akce s rukou,Действия рукой,Handaktionen,Acciones manuales,Ações manuais,Actions de la main,Azioni manuali,Akcie s rukou,Akcje z rękami,Pokreti ruku,Pokreti ruku,Actiuni cu mana
+body_parts,Body parts,Části těla,Части тела,Körperstellen,Partes del cuerpo,Partes do corpo,Parties du corps,Parti del corpo,Časti tela,Części ciała,Delovi tela,Dijelovi tijela,Partile corpului
+person,People,Lidé,Люди,Menschen,Personas,Pessoas,Gens,Persone,Ľudia,Ludzie,Ljudi,Ljudi,Oameni
+person_gesture,Gestures,Gesta,Жесты,Gesten,Gestos,Gestos,Gestes,Gesti,Gestá rúk,Gesty rękami,Geste ,Geste  ,Gesturi  
+person_role,Jobs and roles,Zaměstnání a role,Работа и роли,Job und Rollen,Empleos y roles,Trabalhos e funções,Emplois et rôles,Lavori e ruoli,Zamestnania a role,Praca i role,Poslovi i uloge,Poslovi i uloge,Locuri de munca si roluri
+person_fantasy,Fantasy persons,Pohádkové postavy,Сказочные персонажи,Fantasiefiguren,Personas de fantasía,Pessoas fantasiadas,Personnes fantastiques,Persone di fantasia,Rozprávkové postavy ,Postaci fikcyjne,Fantazijske osobe,Fantazijske osobe,Persoane fantastice
+person_activity,Activities,Aktivity,Деятельность,Aktivitäten,Actividades,Actividades,Activités,Attività,Aktivity ,Aktywności,Aktivnosti,Aktivnosti,Activitati
+person_sport,Sports,Sporty,Виды спорта,Sport,Deportes,Deporte,Des sports,Gli sport,Športy,Sporty,Sportovi,Sportovi,Sport
+person_resting,Resting,Odpočinek,Отдых,ausruhen,Descanso,Descanso,Repos,Riposo,Odpočinok,Odpoczynek,Odmaranje,Odmaranje,Relaxare
+family,Family,Rodina,Семья,Familie,Familia,Familia,Famille,Famiglia,Rodina,Rodzina,Porodica,Obitelj,Familie
+person_symbol,Person symbols,Symboly s lidmi,Символы с людьми,Personensymbole,Símbolos de la persona,Símbolos da pessoa,Symboles de personne,Simboli della persona,Symboly s ľuďmi,Symbole z ludźmi,Simboli sa ljudima,Simboli sa ljudima,Simboluri persoane
+animal_mammal,Mammals,Savci,Млекопитающие,Säugetiere,Mamíferos,Mamíferos,Les mammifères,Mamifferi,Cicavce,Ssaki,Sisavci,Sisavci,Mamifere
+animal_bird,Birds,Ptáci,Птицы,Vögel,Aves,Aves,Des oiseaux,Uccelli,Vtáky,Ptaki,Ptice,Ptice,Pasari
+animal_amphibian,Amphibians,Obojživelníci,Амфибии,Amphibien,Anfibios,Anfibios,Amphibiens,Anfibi,Obojživelníky,Płazy,Vodozemci,Vodozemci,Amfibieni
+animal_reptile,Reptiles,Plazy,Рептилии,Reptilien,Reptiles,Repteis,Reptiles,Rettile,Plazy,Gady,Reptili,Reptili,Reptile
+animal_marine,Underwater animals,Vodní zvířata,Водоплавающие,Meerestiere,Animales bajo el agua,Animais subaquáticos,Animaux sous-marins,Animali subacquei,Vodné zvieratá,Zwierzęta wodne,Podvodne životinje,Podvodne životinje,Animale acvatice
+animal_bug,Bugs,Brouci,Насекомые,Käfer,Insectos,Insectos,Insectes,Insetti,Chrobáky,Chrząszcze,Bube,Bube,Insecte
+plant_flower,Flowers,Květiny,Цветы,Blumen,Flores,Flores,Fleurs,Fiori,Kvetiny,Kwiaty,Cveće,Cvijeće,Flori
+plant_other,Plants and trees,Zeleň a stromy,Деревья и растения,Pflanzen und Bäume,Plantas y arboles,Plantas e árvores,Plantes et arbres,Piante e alberi,Zeleň a stromy,Rośliny i drzewa,Biljke i drveća,Biljke i drveća,Plante si copaci
+food_fruit,Fruit,Ovoce,Фрукты,Früchte,Fruta,Frutas,Fruits,Frutta,Ovocie,Owoce,Voće,Voće,Fructe
+food_vegetable,Vegetable,Zelenina,Овощи,Vegetarisch,Vegetal,Vegetais,Légume,Verdura,Zelenina ,Warzywa,Povrće,Povrće,Legume
+food_prepared,Food,Jídlo,Еда,Essen,Comida,Comida,Aliments,Cibo,Jedlo,Jedzenie,Hrana,Hrana,Mancare
+food_asian,Asian food,Asijské jídlo,Азиатская еда,Asiatisches Essen,Comida Asiatica,Comida Asiatica,Nourriture Asiatique,Cibo asiatico,Asijské jedlo ,Kuchnia azjatycka,Azijska hrana,Azijska hrana,Mancare asiatica
+food_marine,Sea food,Mořské plody,Морепродукты,Meeresfrüchte,Mariscos,Mariscos,Fruit de me,Frutti di mare,Morské plody,Owoce morza,Morski plodovi,Morski plodovi,Fructe de mare
+food_sweet,Sweets,Cukrovinky,Сладости,Süsses,Dulces,Doces,Bonbons,Dolci,Sladkosti ,Słodycze,Slatkiši,Slatkiši,Dulciuri
+drink,Drinks,Nápoje,Напитки,Getränke,Bebidas,Bebidas,Boissons,Bevande,Nápoje,Napoje,Pića,Pića,Bauturi
+dishware,Dishware,Nádobí,Посуда,Geschirr,Vajilla,Louça,Vaiselle,Stoviglie,Riad,Naczynia,Suđe,Suđe,Vase
+place_map,Maps,Mapy,Карты,Karten,Mapas,Mapas,Cartes,Mappe,Mapy,Mapy,Mape,Mape,Harti
+place_geographic,Landscape,Krajina,Ландтшафт,Landschaft,Paisaje,Paisagens,Paysage,Paesaggio,Krajina,Krajobraz,Krajobraz,Krajolik,Peisaje
+place_building,Buildings,Budovy,Здания,Gebäude,Edificio,Edificios,Bâtiments,Edifici,Budovy,Budynki,Zgrade,Zgrade,Cladiri
+place_religious,Religious buildings,Náboženské budovy,Религиозные сооружения,Religiöse Gebäude,Edificios religiosos,Edificios religiosos,Bâtiments religieux,Edifici religiosi,Náboženské budovy,Budynki sakralne,Verski objekti,Vjerske zgrade,Cladiri religioase
+place_other,Places,Místa,Виды,Plätze,Lugares,Lugares,Des endroits,Posti,Miesta,Miejsca,Mesta,Mjesta,Locuri  
+transport_ground,Ground transport,Pozemní přeprava,Наземный транспорт,Bodentransport,Transporte terrestre,Transporte terrestre,Transport terrestre,Trasporto via terra,Pozemná preprava ,Transport podziemny,Kopneni prevoz,Kopneni prijevoz,Transport la sol
+transport_water,Water transport,Lodní přeprava,Водный транспорт,Wassertransport,Transporte por agua,Transporte por agua,Le transport par eau,Trasporto per via d'acqua,Lodná preprava ,Transport wodny,Vodni prevoz,Vodeni prijevoz,Transport pe apa
+transport_air,Air transport,Letecká přeprava,Авиационный траснспорт,Lufttransport,Transporte aéreo,Transporte aéreo,Transport aérien,Trasporto aereo,Letecká preprava,Transport powietrzny,Vazdušni saobraćaj,Zračni promet,Transport aerian
+hotel,Hotel,Hotel,Отель,Hotel,Hotel,Hotel,Hôtel,Hotel,Hotel,Hotel,Hotel,Hotel,Hotel
+time,Time,Čas,Время,Zeit,Tiempo,Tempo,Temps,Tempo,Čas,Czas,Vreme,Vreme,Timp
+sky_weather,Sky and weather,Nebe a počasí,Небо и погода,Himmel und Wetter,Cielo y tiempo,Céu e tempo,Ciel et météo,Cielo e tempo,Podnebie a počasie,Niebo i pogoda,Nebo i vreme,Nebo i vrijeme,Cer si vreme
+event,Events,Události,События,Veranstaltungen,Eventos,Eventos,Événements,Eventi,Události,Wydarzenia,Događaji,Događaji,Evenimente
+award_medal,Awards,Ocenění,Награды,Auszeichnungen,Premios,Premios,Prix,Premi,Ocenenie,Nagrody,Nagrade,Nagrade,Premii
+sport,Sports equipment,Sportovní vybavení,Спортивное снаряжение,Sportausrüstung,Equipo deportivo,Equipa deportiva,Équipement sportif,Attrezzatura sportiva,Športové vybavenie,Sprzęt sportowy,Sportska oprema,Sportska oprema,Echipament sportiv
+game,Games,Hry,Игры,Spiele,Juegos,Jogos,Jeux,Giochi,Hry,Gry,Igre,Igre,Jocuri
+arts_crafts,Arts and crafts,Umění a činnosti,Искусство и творчество,Kunst und Handwerk,Artes y oficios,Artes e ofícios,l'artisanat,Arti e mestieri,Umenie a činnosti ,Sztuka i rzemiosło,Radinosti,Umjetnost i obrt,Arte si meserii
+clothing,Clothing,Oblečení,Одежда,Kleidung,Ropa,Roupas,Vêtements,Abbigliamento,Oblečenie ,Ubrania,Odeća,Odjeća,Imbracamine
+sound,Sound signs,Hudební symboly,Звуковые символы,Noten,Señales de sonido,Sinais sonoros,Signes sonores,Segni sonori,Hudobné symboly,Znaki muzyczne,Zvučni znakovi,Zvučni znakovi,Semnale acustice
+music,Music,Hudba,Музыка,Musik ,Música,Música,La musique,Musica,Hudba,Muzyka,Muzika,Glazba,Muzica
+musical_instrument,Musical instruments,Hudební nástroje,Музыкальные инструменты,Musikinstrumente,Instrumentos musicales,Instrumentos musicais,Instruments de musique,Strumenti musicali,Hudobné nástroje ,Instrumenty muzyczne,Muzički instrumenti,Glazbeni instrumenti,Instrumente muzicale
+phone,Phones,Telefony,Телефоны,Telefone,Móviles,Telemóveis,Téléphone,Cellulari,Telefony ,Telefony,Telefoni,Telefoni,Telefoane
+computer,Computers,Počítače,Компьютеры,Computer,Ordenadores,Computadores,Des ordinateurs,Computers,Počítače ,Komputery,Kompjuteri,Računala,Computere
+light_video,Movies and lights,Film a světla,Кино и свет,Filme und Lichter,Peliculas y luces,Filmes e luzes,Films et lumières,Film e luci,Film a svetlá,Filmy i światło,Filmovi i svetla,Filmovi i svijetla,Filme si lumini
+book_paper,Books and papers,Knihy a papíry,Газеты и книги,Bücher und Papier,Libros y documentos,Livros e documentos,Livres et papiers,Libri e documenti,Knihy a papiere,Książki i gazety,Knjige i papiri,Knjige i papiri,Carti si hartie
+money,Money,Peníze,Деньги,Geld,Dinero,Dinheiro,Argent,I soldi,Peniaze,Pieniądze,Pare,Novac,Bani
+mail,Mail,Pošta,Почта,Mail,Correo,E-mail,Courrier,Posta,Pošta ,Poczta,Posta,Pošta,Mail
+writing,Writing,Psaní,Письменные принадлежности,Schreiben,Escritura,Escritura,L'écriture,Scrittura,Písanie ,Pisanie,Pisanje,Pisanje,Scris
+office,Office,Kancelář,Канцтовары,Büro,Oficina,Oficina,Bureau,Ufficio,Kancelár,Biuro,Kancelarija,Ured,Birou
+lock,Locks,Zámky,Замки,Schlösser,Cerraduras,Fechaduras,Serrures,Serrature,Zámky ,Zamki,Brave,Brave,Broaste
+tool,Tools,Nástroje a nářadí,Инструменты,Werkzeuge,Herramientas,Ferramentas,Outils,Utensili,Nástroje a náradie ,Narzędzia,Alati,Alati,Unelte
+science,Science equipment,Vědecké vybavení,Научное оборудование,Wissenschaftliche Ausrüstung,Equipo cientifico,Equipa científica,Équipement scientifique,Attrezzature scientifiche,Vedecké vybavanie ,Sprzęty naukowe,Naučna oprema,Znantvena oprema,Echipament stiintific
+medical,Medical equipment,Zdravotnické vybavení,Медицинское оборудование,Medizinische Ausrüstung,Equipo medico,Equipa medica,Équipement médical,Attrezzature mediche,Zdravotnické vybavenie ,Sprzęty medyczne,Medicinska oprema,Medicinska oprema,Echipament medical
+household,Household,Vybavení domácnosti,Домашнее хозяйство,Haushalt,Domestico,Domestico,Ménage,Domestico,Vybavenie domácnosti ,Sprzęty domowe,Domaćinstvo,Domaćinstvo,Gospodarie
+other_object,Objects,Předměty,Предметы,Objekte,Objetos,Objetos,Objets,Oggetti,Predmety,Przedmioty,Predmeti,Predmeti,Obiecte
+transport_sign,Transport signs,Značky v přepravě,Дорожные знаки,Transportzeichen,Señales de transporte,Sinais de transporte,Signalisation de transport,Segni di trasporto,Značky v preprave,Znaki drogowe,Transportni znakovi,Transportni znakovi,Indicatoare de transport
+warning,Warning signs,Varovné značky,Предупреждающие знаки,Warnzeichen,Señales de advertencia,Sinais de aviso,Panneaux de signalisation,Segnali di avvertimento,Varovné značky,Znaki ostrzegawcze,Znakovi upozoravanja,Znakovi upozoravanja,Indicatoare de avertizare
+arrow,Arrows,Šipky,Стрелки,Pfeile,Flechas,Setas,Flèches,Frecce,Šípky,Strzałki,Strele,Strijele,Sageti
+religion,Religious signs,Náboženské symboly,Религиозные символы,Religiöse Zeichen,Signos religiosos,Signos religiosos,Signes religieux,Segni religiosi,Náboženské symboly ,Symbole religijne,Verski simboli,Verski simboli,Semne religioase
+zodiac,Zodiac signs,Znamení zvěrokruhu,Знаки зодиака,Sternzeichen,Signos del zodiaco,Signos do zodíaco,signes du zodiaque,Segni zodiacali,Znamenie zverokruhu,Znaki zodiaku,Znakovi zodijaka,Znakovi zodijaka,Semne zodiacale
+av_symbol,Multimedia signs,Multimediální značky,Мультимедийные знаки,Multimedia- Zeichen,Señales multimedia,Sinais multimídia,Signes multimédias,Segni multimediali,Multimediálné značky,Symbole multimedialne,Multimedijski znakovi,Multimedijski znakovi,Semne multimedia
+gender,Gender signs,Značky pohlaví,Гендерные признаки,Geschlechter- Zeichen,Signos de género,Sinais de gênero,Signes de genre,Segni di genere,Značky pohlavia,Symbole płci,Rodni znakovi,Rodni znakovi,Semne de gen
+math,Math symbols,Matematické symboly,Математические знаки,Mathematische Symbole,Símbolos matemáticos,Símbolos matemáticos,Symboles mathématiques,Simboli matematici,Matematické symboly,Znaki matematyczne,Matematički simboli,Matematički simboli,Simboluri matematice
+punctuation,Punctuation,Diakritická znaménka,Знаки пунктуации,Interpunktion,Puntuación,Pontuação,Ponctuation,Punteggiatura,Diakritické znamienka,Interpunkcja,Interpunkcijski znakovi,Interpunkcijski znakovi,Punctuatie
+currency,Currency,Měny,Валюты,Währung,Moneda,Moeda,Devise,Moneta,Meny,Waluta,Valuta,Valuta,Moneda
+other_symbol,Other symbols,Ostatní značky,Прочие знаки,Andere Symbole,Otros símbolos,Outros símbolos,Autres symboles,Altri simboli,Ostatné značky,Inne symbole,Ostali simboli,Ostali simboli,Alte simboluri
+keycap,Numeric keys,Číselné klávesy,Числовые клавиши,Zifferntasten,Teclas numéricas,Teclas numéricas,Touches numériques,Tasti numerici,Číselné klávesy,Klawisze numeryczne,Numerički tasteri,Numeričke tipke,Taste numerice
+alphanum,Keys and symbols,Klávesy a značky,Буквенные клавиши,Schlüssel und Symbole,Teclas y símbolos,Chaves e símbolos,Clés et symboles,Chiavi e simboli,Klávesy a značky ,Klawisze i symbole,Ključevi i simboli,Ključevi i simboli,Taste si simboluri
+geometric,Geometric shapes,Geometrické tvary,Геометрические фигуры,Geometrische Formen,Formas geométricas,Formas geométricas,Formes géométriques,Forme geometriche,Geometrické tvary,Figury geometryczne,Geometriski oblici,Geometrijski oblici,Forme geometrice
+flag,Flags,Vlajky,Флаги,Flaggen,Banderas,Bandeiras,Drapeaux,Bandiere,Vlajky,Flagi,Zastave,Zastave,Steaguri
+country_flag,Country flags,Státní vlajky,Государственные флаги,Länderflaggen,Banderas de paises,Bandeiras do país,Drapeaux de pays,Bandiere di paesi,Štátné vlajky,Flagi państwowe,Zastave zemalja,Zastave zemalja,Steaguri de tara
