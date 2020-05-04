@@ -154,32 +154,76 @@ else {
             }
         }
     }
-
 //    echo 'MODIFIER=',var_dump($modified);
-
     //Creation of KEYWORDS object
     $keywords = [];
+    $indexmain=[];
+    $indexsub=[];
     foreach ($main->getLanguages() as $lang) {
         $keywords[$lang] = [];
+        $dictionary[$lang] = [];
+        $i=1;
+        $indexmain=array_keys($groupTranslations[$lang]);
+
         foreach ($groupTranslations[$lang] as &$curGroup) {
+            $j=0;
+            $thisKey = mb_strtolower($curGroup[Data::JSON_NAME]);
+            if (!array_key_exists($thisKey, $keywords[$lang])) {
+                $keywords[$lang][$thisKey] = [];
+            }
+            $keywords[$lang][$thisKey][] = U::codeWrapper($i,$j);
+//          echo $thisKey.' i='.$i.' j='.$j.' $k='.$k.' $svertka='.$svertka.PHP_EOL;
+            $j=1;
+            $indexsub[$i-1]=array_keys($curGroup[Data::JSON_LIST]);
+
             foreach ($curGroup[Data::JSON_LIST] as &$subGroup) {
+                $k=0;
+                $thisKey = mb_strtolower($subGroup[Data::JSON_NAME]);
+                if (!array_key_exists($thisKey, $keywords[$lang])) {
+                    $keywords[$lang][$thisKey] = [];
+                }
+                $keywords[$lang][$thisKey][] = U::codeWrapper($i,$j);
+//              echo $thisKey.' i='.$i.' j='.$j.' $k='.$k.' $svertka='.$svertka. PHP_EOL;
+                $k=1;
+
                 foreach ($subGroup[Data::JSON_LIST] as $key => &$value) {
-                    if ($value[Data::JSON_KEYWORDS] !== null) {
-                        $thisKeys = explode(Data::JSON_KEY_DELIM, $value[Data::JSON_KEYWORDS]);
-                        $thisKeys[] = $value[Data::JSON_NAME];
-                        foreach ($thisKeys as $thisKey) {
-                            $thisKey = mb_strtolower($thisKey);
+                    $thisKeys=[];
+                    if(array_key_exists(Data::JSON_KEYWORDS, $value)) $thisKeys = explode(Data::JSON_KEY_DELIM, $value[Data::JSON_KEYWORDS]);
+                    $thisKeys[] = $value[Data::JSON_NAME];
+
+                    foreach ($thisKeys as $thisKey) {
+                        $thisKey = mb_strtolower($thisKey);
+                        if($thisKey!=='') {
                             if (!array_key_exists($thisKey, $keywords[$lang])) {
                                 $keywords[$lang][$thisKey] = [];
                             }
-                            $keywords[$lang][$thisKey][] = $key;
+//                          $keywords[$lang][$thisKey][] = $key;
+                            $keywords[$lang][$thisKey][] = U::codeWrapper($i,$j,$k);
                         }
-                        unset($value[Data::JSON_KEYWORDS]);
                     }
+                    unset($value[Data::JSON_KEYWORDS]);
+                    $k++;
                 }
+                $j++;
             }
+            $i++;
         }
         ksort($keywords[$lang], SORT_LOCALE_STRING);
+        foreach($keywords[$lang] as $key=>$value){
+           if(strpos($key,' ')){
+               $thisKeys = explode(' ', $key);
+               foreach ($thisKeys as $thisKey) {
+                   if(strlen($thisKey)>=3) {
+  //                     if (!array_key_exists($thisKey, $dictionary[$lang])) {
+  //                         $dictionary[$lang][$thisKey] = [];
+  //                     }
+//                     $keywords[$lang][$thisKey][] = $key;
+                       $dictionary[$lang][$thisKey][] = $value;
+                   }
+               }
+           }
+        }
+        ksort($dictionary[$lang], SORT_LOCALE_STRING);
     }
 
     foreach ($emoji as $char => $annotation) {
@@ -200,7 +244,10 @@ else {
                 'groups' => $groupTranslations[$lang] ?? [],
                 'filters' => $filter[$lang][Data::JSON_LIST] ?? [],
                 'keywords' => $keywords[$lang] ?? [],
+                'dictionary' => $dictionary[$lang] ?? [],
                 'mode' => $modified ?? [],
+                'indexgroup' => $indexmain ?? [],
+                'indexsub'   => $indexsub ?? [],
             ], JSON_THROW_ON_ERROR + JSON_UNESCAPED_UNICODE)); //Crash on invalid JSON instead of creating empty file
 
         }
