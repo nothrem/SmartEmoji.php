@@ -271,4 +271,23 @@ class Unicode {
 //        return mb_strtoupper(self::char($string)) . self::sub($string, 1);
         return self::char($string) . self::sub($string, 1);
     }
+
+    /**
+     * Convert UTF-8 encoded string to upper case letters.
+     *
+     * @param string $string
+     * @return string
+     */
+
+    public static function codeWrapper($numGroup, $numSubGroup, $numEmoji=0) {
+        $wrap = ($numGroup << 8)|$numSubGroup;
+        $result = mb_chr($wrap,'UTF-8');
+        if ($numEmoji!==0){
+           return $result.mb_chr($numEmoji,'UTF-8');
+        } else {
+            return $result;
+        }
+
+
+    }
 }
