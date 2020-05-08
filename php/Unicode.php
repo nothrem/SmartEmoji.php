@@ -273,13 +273,15 @@ class Unicode {
     }
 
     /**
-     * Convert UTF-8 encoded string to upper case letters.
-     *
-     * @param string $string
+     * Convert number group and subgroup into one UTF-8 encoded char. Convert number of emoji in subgroup
+     * into another UTF-8 encoded char.
+     * @param int $numGroup
+     * @param int $numSubGroup
+     * @param int $numEmoji
      * @return string
      */
 
-    public static function codeWrapper($numGroup, $numSubGroup, $numEmoji=0) {
+    public static function codeWrapper(int $numGroup, int $numSubGroup, int $numEmoji=0) {
         $wrap = ($numGroup << 8)|$numSubGroup;
         $result = mb_chr($wrap,'UTF-8');
         if ($numEmoji!==0){
@@ -289,5 +291,47 @@ class Unicode {
         }
 
 
+    }
+
+    /**
+     * Find the common root with length $rootlen by comparing $baseword and $search.
+     * Return this common root with maximum length.
+     * @param string $baseword
+     * @param string $search
+     * @param int $rootlen
+     * @return string
+     */
+
+    public static function rootFinder(string $baseword, string $search, int $rootlen=3) {
+
+        $roots = [];
+        $maxi = strlen($search)-3;
+        $maxj = strlen($baseword)-3;
+        $complen = $rootlen;
+        for($i=0; $i<=$maxi; $i++){
+            $searchsub = substr($search,$i,$complen);
+            for($j=0; $j<=$maxj; $j++){
+                $common ='';
+                $oldcommon = $common;
+                $basesub = substr($baseword,$j,$complen);
+                $test = strncasecmp($basesub, $searchsub, $complen);
+                while($test==0&&$oldcommon!==-1){
+                    $common = $searchsub;
+                    $complen++;
+                    $searchsub = substr($search,$i,$complen);
+                    $basesub = substr($baseword,$j,$complen);
+                    $test = strncasecmp($basesub, $searchsub, $complen);
+                    $oldcommon = ($oldcommon!==$common) ? $common : -1;
+                }
+                if($common!=='') {
+                    $roots[] =  $common;
+                    $complen = $rootlen;
+                    $j+=strlen($common);
+                    $i+=strlen($common);
+                }
+            }
+        }
+        $result = (count($roots)==0) ? false : $roots ; // $result is set to 0 if no common roots are found
+        return  $result;
     }
 }
