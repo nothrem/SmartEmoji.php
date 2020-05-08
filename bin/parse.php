@@ -159,9 +159,12 @@ else {
     $keywords = [];
     $indexmain=[];
     $indexsub=[];
+    $search=[];
+
     foreach ($main->getLanguages() as $lang) {
         $keywords[$lang] = [];
         $dictionary[$lang] = [];
+        $roots[$lang]=[];
         $i=1;
         $indexmain=array_keys($groupTranslations[$lang]);
 
@@ -213,18 +216,36 @@ else {
            if(strpos($key,' ')){
                $thisKeys = explode(' ', $key);
                foreach ($thisKeys as $thisKey) {
-                   if(strlen($thisKey)>=3) {
-  //                     if (!array_key_exists($thisKey, $dictionary[$lang])) {
-  //                         $dictionary[$lang][$thisKey] = [];
-  //                     }
-//                     $keywords[$lang][$thisKey][] = $key;
-                       $dictionary[$lang][$thisKey][] = $value;
+                   $pattern = str_replace(['"','«','»','”','“'],'',$thisKey);
+                   if(strlen($pattern)>=3) {
+                       $dictionary[$lang][$pattern][] = $value;
                    }
                }
            }
         }
         ksort($dictionary[$lang], SORT_LOCALE_STRING);
+        $search = $dictionary[$lang];
+        foreach($dictionary[$lang] as $key=>$value){
+            $needle = array_shift($search);
+            foreach($search as $word=>$code){
+                $result = U::rootFinder($key,$word);
+                if ($result){
+                    $howmany = count($result);
+                    for($k=0;$k<$howmany;$k++){
+                        if(!array_key_exists($result[$k],$roots[$lang])){
+                            $roots[$lang][$result[$k]]=array_merge($roots[$lang][$result[$k]],$value);
+                        }
+                        $roots[$lang][$result[$k]]=array_merge($roots[$lang][$result[$k]],$code);
+                    }
+                }
+                unset($result);
+            }
+        }
+        echo 'ROOT=',var_dump($roots[$lang]);
     }
+
+//    $result = U::rootFinder('mankind','kinderman');
+
 
     foreach ($emoji as $char => $annotation) {
         foreach ($main->getLanguages() as $lang) {
@@ -245,6 +266,7 @@ else {
                 'filters' => $filter[$lang][Data::JSON_LIST] ?? [],
                 'keywords' => $keywords[$lang] ?? [],
                 'dictionary' => $dictionary[$lang] ?? [],
+                'roots' => $roots[$lang] ?? [],
                 'mode' => $modified ?? [],
                 'indexgroup' => $indexmain ?? [],
                 'indexsub'   => $indexsub ?? [],
@@ -272,3 +294,4 @@ else {
 
 //Everything done
 echo 'Done.', PHP_EOL;
+
