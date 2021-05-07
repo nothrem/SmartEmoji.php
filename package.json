@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/nothrem/SmartEmoji#readme",
   "devDependencies": {
-    "grunt": "^1.0.4"
-  },
-  "dependencies": {}
+    "grunt": "^1.3.0"
+  }
 }
